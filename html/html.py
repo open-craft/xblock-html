@@ -1,23 +1,42 @@
 """This XBlock will help creating and using a secure and easy-to-use HTML blocks."""
 
+import logging
 import pkg_resources
 from xblock.core import XBlock
-from xblock.fields import Integer, Scope
+from xblock.fields import Integer, Scope, String
+
 from xblock.fragment import Fragment
+
+from .utils import _
+
+log = logging.getLogger('XBlock.HTML')
 
 
 class HTMLXBlock(XBlock):
     """
     TODO: document what your XBlock does.
     """
-
-    # Fields are defined on the class.  You can access them in your code as
-    # self.<fieldname>.
-
-    # TODO: delete count, and define your own fields.
-    count = Integer(
-        default=0, scope=Scope.user_state,
-        help="A simple counter, to show something happening",
+    display_name = String(
+        display_name=_("Display Name"),
+        help=_("The display name for this component."),
+        scope=Scope.settings,
+        # it'd be nice to have a useful default but it screws up other things; so,
+        # use display_name_with_default for those
+        default=_("Text")
+    )
+    data = String(help=_("Html contents to display for this module"), default=u"", scope=Scope.content)
+    editor = String(
+        help=_(
+            "Select Visual to enter content and have the editor automatically create the HTML. Select Raw to edit "
+            "HTML directly. If you change this setting, you must save the component and then re-open it for editing."
+        ),
+        display_name=_("Editor"),
+        default="visual",
+        values=[
+            {"display_name": _("Visual"), "value": "visual"},
+            {"display_name": _("Raw"), "value": "raw"}
+        ],
+        scope=Scope.settings
     )
 
     def resource_string(self, path):  # pylint: disable=no-self-use
@@ -25,7 +44,7 @@ class HTMLXBlock(XBlock):
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
 
-    # TODO: change this view to display your data your own way.
+    @XBlock.supports("multi_device")
     def student_view(self, context=None):  # pylint: disable=unused-argument
         """
         The primary view of the HTMLXBlock, shown to students
