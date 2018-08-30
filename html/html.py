@@ -50,10 +50,18 @@ class HTMLXBlock(XBlock):
         The primary view of the HTMLXBlock, shown to students
         when viewing courses.
         """
-        html = self.resource_string("static/html/html.html")
+        html = self.resource_string("static/html/studio.html")
         frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/html.css"))
         frag.add_javascript(self.resource_string("static/js/src/html.js"))
+        frag.initialize_js('HTMLXBlock')
+        return frag
+
+    def studio_view(self, context=None):  # pylint: disable=unused-argument
+        html = self.resource_string('static/html/studio.html')
+        frag = Fragment(html)
+        self.add_scripts(frag)
+
         frag.initialize_js('HTMLXBlock')
         return frag
 
@@ -87,3 +95,8 @@ class HTMLXBlock(XBlock):
                 </vertical_demo>
              """),
         ]
+
+    def add_scripts(self, frag):
+        frag.add_javascript(self.resource_string("static/js/tinymce/tinymce.min.js"))
+        frag.add_javascript(self.resource_string("static/js/tinymce/themes/modern/theme.min.js"))
+        frag.add_javascript(self.resource_string("static/js/entrypoint.js"))
