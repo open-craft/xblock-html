@@ -1,27 +1,25 @@
-"""This XBlock will help creating and using a secure and easy-to-use HTML blocks."""
+"""This XBlock will help creating a secure and easy-to-use HTML blocks in edx-platform."""
 
 import logging
 import pkg_resources
 from xblock.core import XBlock
-from xblock.fields import Integer, Scope, String
+from xblock.fields import Scope, String
 
 from xblock.fragment import Fragment
 
 from .utils import _
 
-log = logging.getLogger('XBlock.HTML')
+log = logging.getLogger('XBlock.HTML')  # pylint: disable=invalid-name
 
 
 class HTML5XBlock(XBlock):
     """
-    TODO: document what your XBlock does.
+    This XBlock will provide an HTML WYSIWYG interface in Studio to be rendered in LMS.
     """
     display_name = String(
         display_name=_("Display Name"),
         help=_("The display name for this component."),
         scope=Scope.settings,
-        # it'd be nice to have a useful default but it screws up other things; so,
-        # use display_name_with_default for those
         default=_("Text")
     )
     data = String(help=_("Html contents to display for this module"), default=u"", scope=Scope.content)
@@ -39,7 +37,8 @@ class HTML5XBlock(XBlock):
         scope=Scope.settings
     )
 
-    def resource_string(self, path):  # pylint: disable=no-self-use
+    @staticmethod
+    def resource_string(path):
         """Handy helper for getting resources from our kit."""
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
@@ -65,21 +64,6 @@ class HTML5XBlock(XBlock):
         frag.initialize_js('HTML5XBlock')
         return frag
 
-    # TODO: change this handler to perform your own actions.  You may need more
-    # than one handler, or you may not need any handlers at all.
-    @XBlock.json_handler
-    def increment_count(self, data, suffix=''):  # pylint: disable=unused-argument
-        """
-        An example handler, which increments the data.
-        """
-        # Just to show data coming in...
-        assert data['hello'] == 'world'
-
-        self.count += 1
-        return {"count": self.count}
-
-    # TODO: change this to create the scenarios you'd like to see in the
-    # workbench while developing your XBlock.
     @staticmethod
     def workbench_scenarios():
         """A canned scenario for display in the workbench."""
@@ -97,6 +81,10 @@ class HTML5XBlock(XBlock):
         ]
 
     def add_scripts(self, frag):
+        """
+        A helper method to add all necessary scripts to the fragment.
+        :param frag: The fragment that will hold the scripts.
+        """
         frag.add_javascript(self.resource_string("static/js/tinymce/tinymce.min.js"))
         frag.add_javascript(self.resource_string("static/js/tinymce/themes/modern/theme.min.js"))
         frag.add_javascript(self.resource_string("static/js/entrypoint.js"))
