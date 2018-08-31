@@ -34,7 +34,7 @@ setup(
     ],
     entry_points={
         'xblock.v1': [
-            'html = html:HTMLXBlock',
+            'html5 = html:HTML5XBlock',
         ]
     },
     package_data=package_data("html", ["static", "public"]),

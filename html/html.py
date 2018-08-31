@@ -12,7 +12,7 @@ from .utils import _
 log = logging.getLogger('XBlock.HTML')
 
 
-class HTMLXBlock(XBlock):
+class HTML5XBlock(XBlock):
     """
     TODO: document what your XBlock does.
     """
@@ -47,14 +47,14 @@ class HTMLXBlock(XBlock):
     @XBlock.supports("multi_device")
     def student_view(self, context=None):  # pylint: disable=unused-argument
         """
-        The primary view of the HTMLXBlock, shown to students
+        The primary view of the HTML5XBlock, shown to students
         when viewing courses.
         """
         html = self.resource_string("static/html/studio.html")
         frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/html.css"))
         frag.add_javascript(self.resource_string("static/js/src/html.js"))
-        frag.initialize_js('HTMLXBlock')
+        frag.initialize_js('HTML5XBlock')
         return frag
 
     def studio_view(self, context=None):  # pylint: disable=unused-argument
@@ -62,7 +62,7 @@ class HTMLXBlock(XBlock):
         frag = Fragment(html)
         self.add_scripts(frag)
 
-        frag.initialize_js('HTMLXBlock')
+        frag.initialize_js('HTML5XBlock')
         return frag
 
     # TODO: change this handler to perform your own actions.  You may need more
@@ -84,14 +84,14 @@ class HTMLXBlock(XBlock):
     def workbench_scenarios():
         """A canned scenario for display in the workbench."""
         return [
-            ("HTMLXBlock",
-             """<html/>
+            ("HTML5XBlock",
+             """<html5/>
              """),
-            ("Multiple HTMLXBlock",
+            ("Multiple HTML5XBlock",
              """<vertical_demo>
-                <html/>
-                <html/>
-                <html/>
+                <html5/>
+                <html5/>
+                <html5/>
                 </vertical_demo>
              """),
         ]

@@ -1,1 +1,1 @@
-from .html import HTMLXBlock
+from .html import HTML5XBlock
