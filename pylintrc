@@ -7,7 +7,8 @@ max-line-length=120
 [MESSAGES CONTROL]
 disable=
 	too-many-ancestors,
-	missing-docstring
+	missing-docstring,
+	unreachable
 
 [SIMILARITIES]
 min-similarity-lines=8
