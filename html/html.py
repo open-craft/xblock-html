@@ -7,6 +7,7 @@ from xblock.fields import Scope, String
 
 from xblock.fragment import Fragment
 
+from .bleaching import SanitizedText
 from .utils import _
 
 log = logging.getLogger('XBlock.HTML')  # pylint: disable=invalid-name
@@ -53,8 +54,6 @@ class HTML5XBlock(XBlock):
         frag.initialize_js('HTMLXBlock')
         return frag
 
-        return Fragment(self.data)
-
     def studio_view(self, context=None):  # pylint: disable=unused-argument
         html = self.resource_string('static/html/studio.html')
         frag = Fragment(html.format(self=self))
@@ -96,3 +95,7 @@ class HTML5XBlock(XBlock):
         frag.add_javascript(self.resource_string('static/js/tinymce/tinymce.min.js'))
         frag.add_javascript(self.resource_string('static/js/tinymce/themes/modern/theme.min.js'))
         frag.add_javascript(self.resource_string('static/js/entrypoint.js'))
+
+    @property
+    def sanitized_data(self):
+        return SanitizedText(self.data)
