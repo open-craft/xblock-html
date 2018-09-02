@@ -57,6 +57,7 @@ class HTML5XBlock(XBlock):
     def studio_view(self, context=None):  # pylint: disable=unused-argument
         html = self.resource_string('static/html/studio.html')
         frag = Fragment(html.format(self=self))
+        self.add_stylesheets(frag)
         self.add_scripts(frag)
 
         frag.initialize_js('HTML5XBlock')
@@ -87,6 +88,16 @@ class HTML5XBlock(XBlock):
              """),
         ]
 
+    def add_stylesheets(self, frag):
+        """
+        A helper method to add all necessary styles to the fragment.
+        :param frag: The fragment that will hold the scripts.
+        """
+        frag.add_css(self.resource_string('static/css/studio.css'))
+
+        if self.editor != 'visual':
+            frag.add_css(self.resource_string('public/plugins/codemirror/codemirror-4.8/lib/codemirror.css'))
+
     def add_scripts(self, frag):
         """
         A helper method to add all necessary scripts to the fragment.
@@ -94,7 +105,12 @@ class HTML5XBlock(XBlock):
         """
         frag.add_javascript(self.resource_string('static/js/tinymce/tinymce.min.js'))
         frag.add_javascript(self.resource_string('static/js/tinymce/themes/modern/theme.min.js'))
-        frag.add_javascript(self.resource_string('static/js/entrypoint.js'))
+        frag.add_javascript(self.resource_string('static/js/html.js'))
+
+        if self.editor != 'visual':
+            code_mirror_dir = 'public/plugins/codemirror/codemirror-4.8/'
+            frag.add_javascript(self.resource_string(code_mirror_dir + 'lib/codemirror.js'))
+            frag.add_javascript(self.resource_string(code_mirror_dir + 'mode/xml/xml.js'))
 
     @property
     def sanitized_data(self):
