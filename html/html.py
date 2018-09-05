@@ -93,8 +93,6 @@ class HTML5XBlock(XBlock):
         A helper method to add all necessary styles to the fragment.
         :param frag: The fragment that will hold the scripts.
         """
-        frag.add_css(self.resource_string('static/css/studio.css'))
-
         if self.editor != 'visual':
             frag.add_css(self.resource_string('public/plugins/codemirror/codemirror-4.8/lib/codemirror.css'))
 
