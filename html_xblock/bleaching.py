@@ -3,7 +3,7 @@ import bleach
 
 class SanitizedText(object):  # pylint: disable=too-few-public-methods
     """
-    This class is responsible for maintaining unsafe string values saved in the database. It returns 
+    This class is responsible for maintaining unsafe string values saved in the database. It returns
     a safe value of the passed text and an unsafe value if requested.
     """
 
@@ -35,14 +35,31 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def _get_allowed_tags(self):
         """
-        This is an override to the original bleaching cleaner ALLOWED_TAGS, it deals with two bleaching modes, 
+        This is an override to the original bleaching cleaner ALLOWED_TAGS, it deals with two bleaching modes,
         the strict mode, and the trusted mode.
 
         :return: Allowed tags depending on the bleaching mode
         """
         tags = [
-            'a', 'b', 'blockquote', 'code', 'em','h3', 'h4', 'h5', 'h6', 'i',
-            'img', 'li', 'span', 'strong', 'pre', 'ol', 'ul', 'p', 'pre'
+            'a',
+            'b',
+            'blockquote',
+            'code',
+            'em',
+            'h3',
+            'h4',
+            'h5',
+            'h6',
+            'i',
+            'img',
+            'li',
+            'span',
+            'strong',
+            'pre',
+            'ol',
+            'ul',
+            'p',
+            'pre'
         ]
 
         if not self.strict:
@@ -52,19 +69,19 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def _get_allowed_attributes(self):
         """
-        This is an override to the original bleaching cleaner ALLOWED_ATTRIBUTES, it deals with two bleaching modes, 
+        This is an override to the original bleaching cleaner ALLOWED_ATTRIBUTES, it deals with two bleaching modes,
         the strict mode, and the trusted mode.
 
         :return: Allowed attributes depending on the bleaching mode
         """
         attributes = {
-                    'a': ['href', 'title', 'target', 'rel'],
-                    'img': ['src', 'alt', 'width', 'height'],
-                    'p': ['style'],
-                    'pre': ['class'],
-                    'span': ['style'],
-                    'ul': [],
-                }
+            'a': ['href', 'title', 'target', 'rel'],
+            'img': ['src', 'alt', 'width', 'height'],
+            'p': ['style'],
+            'pre': ['class'],
+            'span': ['style'],
+            'ul': [],
+        }
 
         if not self.strict:
             attributes.update({'abbr': ['title']})
@@ -75,7 +92,7 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def _get_allowed_styles(self):
         """
-        This is an override to the original bleaching cleaner ALLOWED_STYLES, it deals with two bleaching modes, 
+        This is an override to the original bleaching cleaner ALLOWED_STYLES, it deals with two bleaching modes,
         the strict mode, and the trusted mode.
 
         :return: Allowed styles depending on the bleaching mode

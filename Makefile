@@ -26,7 +26,7 @@ requirements:
 	@echo "Finished installing requirements."
 
 quality:
-	pep8 html --max-line-length=120
-	pylint html
+	pep8 html_xblock --max-line-length=120
+	pylint html_xblock
 
 test: quality ## Run tests in the current virtualenv
