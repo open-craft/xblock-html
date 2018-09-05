@@ -27,15 +27,15 @@ setup(
     description='HTML XBlock will help creating and using a secure and easy-to-use HTML blocks',
     license='AGPL v3',
     packages=[
-        'html',
+        'html_xblock',
     ],
     install_requires=[
         'XBlock',
     ],
     entry_points={
         'xblock.v1': [
-            'html5 = html:HTML5XBlock',
+            'html5 = html_xblock:HTML5XBlock',
         ]
     },
-    package_data=package_data("html", ["static", "public"]),
+    package_data=package_data("html_xblock", ["static", "public"]),
 )
