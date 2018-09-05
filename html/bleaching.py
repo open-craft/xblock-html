@@ -1,62 +1,10 @@
 import bleach
 
 
-class Cleaner(bleach.Cleaner):  # pylint: disable=too-few-public-methods
-    """
-    This class will only help lowering the strictness level of `bleach.Cleaner` super class by redefining the safe
-    values we're currently using and the prohibited ones.
-    """
-    def __init__(self, strict=True):
-        """
-        This is an override to the original bleaching cleaner, it deals with two bleaching modes, the strict mode,
-        and the trusted mode.
-
-        - Strict Mode (default): Mainly used for rendering strings that are not required to have too much attributes
-          and tags and doesn't aloow the use of most of the styles attributes.
-        - Trusted mode: Mainly used to render content that marked as trusted.
-
-        :param strict: whether we should strictly process the text or not.
-        """
-        attributes = {
-            'a': ['href', 'title', 'target', 'rel'],
-            'span': ['style'],
-            'p': ['style'],
-            'ul': [],
-            'img': ['src', 'alt', 'width', 'height'],
-        }
-        tags = [
-            'a', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'span',
-            'ol', 'strong', 'ul', 'p', 'img', 'pre', 'h3', 'h4', 'h5', 'h6'
-        ]
-        styles = ['font-family', 'text-align', 'color', 'text-decoration', 'padding-left', 'padding-right']
-
-        if not strict:
-            attributes.update({
-                'abbr': ['title'],
-            })
-            attributes['ul'].append('style')
-            attributes['img'].append('style')
-
-            tags += ['h1', 'h2', 'script', 'sub', 'sup', 'div', 'abbr', 'iframe']
-
-            styles += ['list-style-type', 'font-size', 'border-width', 'margin']
-
-        self.styles = styles
-        self.tags = tags
-        self.attributes = attributes
-
-        super(Cleaner, self).__init__(
-            tags=self.tags,
-            attributes=self.attributes,
-            styles=self.styles,
-            strip=True,
-        )
-
-
 class SanitizedText(object):  # pylint: disable=too-few-public-methods
     """
-    This class is responsible for maintaining unsafe string values saved in the database. It returns a safe value of the
-    passed text and an unsafe value if requested.
+    This class is responsible for maintaining unsafe string values saved in the database. It returns 
+    a safe value of the passed text and an unsafe value if requested.
     """
 
     def __init__(self, value, strict=True):
@@ -66,10 +14,78 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
         :param value: The original string value that came from DB.
         :param strict: Whether to strictly process the given text or not.
         """
-        cleaner = Cleaner(strict=strict)
         self.strict = strict
+        self.cleaner = self.get_cleaner()
+
         self.adulterated_value = value
-        self.sanitized_value = cleaner.clean(value)
+        self.sanitized_value = self.cleaner.clean(value)
+
+    def get_cleaner(self):
+        """
+        This method will help lowering the strictness level of `bleach.Cleaner` by redefining the safe
+        values we're currently using and considering safe in the platform.
+        """
+        cleaner = bleach.Cleaner(
+            tags=self._get_allowed_tags(),
+            attributes=self._get_allowed_attributes(),
+            styles=self._get_allowed_styles()
+        )
+
+        return cleaner
+
+    def _get_allowed_tags(self):
+        """
+        This is an override to the original bleaching cleaner ALLOWED_TAGS, it deals with two bleaching modes, 
+        the strict mode, and the trusted mode.
+
+        :return: Allowed tags depending on the bleaching mode
+        """
+        tags = [
+            'a', 'b', 'blockquote', 'code', 'em','h3', 'h4', 'h5', 'h6', 'i',
+            'img', 'li', 'span', 'strong', 'pre', 'ol', 'ul', 'p', 'pre'
+        ]
+
+        if not self.strict:
+            tags += ['h1', 'h2', 'script', 'sub', 'sup', 'div', 'abbr', 'iframe']
+
+        return tags
+
+    def _get_allowed_attributes(self):
+        """
+        This is an override to the original bleaching cleaner ALLOWED_ATTRIBUTES, it deals with two bleaching modes, 
+        the strict mode, and the trusted mode.
+
+        :return: Allowed attributes depending on the bleaching mode
+        """
+        attributes = {
+                    'a': ['href', 'title', 'target', 'rel'],
+                    'img': ['src', 'alt', 'width', 'height'],
+                    'p': ['style'],
+                    'pre': ['class'],
+                    'span': ['style'],
+                    'ul': [],
+                }
+
+        if not self.strict:
+            attributes.update({'abbr': ['title']})
+            attributes['ul'].append('style')
+            attributes['img'].append('style')
+
+        return attributes
+
+    def _get_allowed_styles(self):
+        """
+        This is an override to the original bleaching cleaner ALLOWED_STYLES, it deals with two bleaching modes, 
+        the strict mode, and the trusted mode.
+
+        :return: Allowed styles depending on the bleaching mode
+        """
+        styles = ['font-family', 'text-align', 'color', 'text-decoration', 'padding-left', 'padding-right']
+
+        if not self.strict:
+            styles += ['list-style-type', 'font-size', 'border-width', 'margin']
+
+        return styles
 
     def _determine_values(self, other):
         """
@@ -92,6 +108,12 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
         return self_value, other_value
 
     def __str__(self):
+        """
+        :return: The value of the text depending on the strictness level.
+        """
+        return self.sanitized_value if self.strict else self.adulterated_value
+
+    def __unicode__(self):
         """
         :return: The value of the text depending on the strictness level.
         """

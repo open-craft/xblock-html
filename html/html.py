@@ -51,6 +51,8 @@ class HTML5XBlock(XBlock):
         """
         html = self.resource_string('static/html/lms.html')
         frag = Fragment(html.format(self=self))
+        frag.add_css(self.resource_string('public/plugins/codesample/css/prism.css'))
+        frag.add_javascript(self.resource_string('public/plugins/codesample/js/prism.js'))
         frag.initialize_js('HTMLXBlock')
         return frag
 
