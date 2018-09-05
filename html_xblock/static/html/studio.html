@@ -1,7 +1,7 @@
 <div class="wrapper-comp-editor" id="editor-tab" data-editor="{self.editor}">
   <div class="html-editor editor">
     <div class="row">
-      <textarea id="html5-textarea">{self.sanitized_data}</textarea>
+      <textarea id="html5-textarea">{self.data}</textarea>
     </div>
   </div>
 </div>
@@ -10,7 +10,7 @@
   <span class="xblock-editor-error-message"></span>
   <ul>
     <li class="action-item">
-      <a href="#" class="button action-primary save-button">Save</a>
+      <a href="#" class="button action-primary" id="save-button">Save</a>
     </li>
 
     <li class="action-item">
