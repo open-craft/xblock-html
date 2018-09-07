@@ -31,6 +31,7 @@ setup(
     ],
     install_requires=[
         'XBlock',
+        'bleach',
     ],
     entry_points={
         'xblock.v1': [
