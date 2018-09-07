@@ -53,7 +53,7 @@ class HTML5XBlock(XBlock):
         frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string('public/plugins/codesample/css/prism.css'))
         frag.add_javascript(self.resource_string('public/plugins/codesample/js/prism.js'))
-        frag.initialize_js('HTMLXBlock')
+
         return frag
 
     def studio_view(self, context=None):  # pylint: disable=unused-argument
