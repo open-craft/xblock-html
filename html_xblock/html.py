@@ -62,7 +62,9 @@ class HTML5XBlock(XBlock):
         self.add_stylesheets(frag)
         self.add_scripts(frag)
 
-        frag.initialize_js('HTML5XBlock')
+        data = {'external_plugins': self.get_editor_plugins()}
+        frag.initialize_js('HTML5XBlock', data)
+
         return frag
 
     @XBlock.json_handler
@@ -111,6 +113,24 @@ class HTML5XBlock(XBlock):
             code_mirror_dir = 'public/plugins/codemirror/codemirror-4.8/'
             frag.add_javascript(self.resource_string(code_mirror_dir + 'lib/codemirror.js'))
             frag.add_javascript(self.resource_string(code_mirror_dir + 'mode/xml/xml.js'))
+
+    def get_editor_plugins(self):
+        """
+        This method will generate a list of external plugins urls to be used in TinyMCE editor.
+        These plugins should live in `public` directory for us to generate URLs for.
+
+        const PLUGINS_DIR = "/resource/html5/public/plugins/";
+        const EXTERNAL_PLUGINS = PLUGINS.map(function(p) { return PLUGINS_DIR + p + "/plugin.min.js" });
+
+        :return: A list of URLs
+        """
+        plugins_dir = 'public/plugins/'
+        plugin_file = '/plugin.min.js'
+        plugins = ['codesample', 'image', 'link', 'lists', 'textcolor', 'codemirror']
+
+        return {
+            plugin: self.runtime.local_resource_url(self, plugins_dir + plugin + plugin_file) for plugin in plugins
+        }
 
     @property
     def sanitized_data(self):

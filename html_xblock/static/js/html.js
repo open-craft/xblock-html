@@ -4,11 +4,7 @@ const CUSTOM_FONTS = "Default='Open Sans', Verdana, Arial, Helvetica, sans-serif
 const STANDARD_FONTS = "Andale Mono=andale mono,times;" + "Arial=arial,helvetica,sans-serif;" + "Arial Black=arial black,avant garde;" + "Book Antiqua=book antiqua,palatino;" + "Comic Sans MS=comic sans ms,sans-serif;" + "Courier New=courier new,courier;" + "Georgia=georgia,palatino;" + "Helvetica=helvetica;" + "Impact=impact,chicago;" + "Symbol=symbol;" + "Tahoma=tahoma,arial,helvetica,sans-serif;" + "Terminal=terminal,monaco;" + "Times New Roman=times new roman,times;" + "Trebuchet MS=trebuchet ms,geneva;" + "Verdana=verdana,geneva;" + "Webdings=webdings;" + "Wingdings=wingdings,zapf dingbats";
 const FONTS = CUSTOM_FONTS + STANDARD_FONTS;
 
-const PLUGINS = ["codesample", "image", "link", "lists", "textcolor", "codemirror"];
-const PLUGINS_DIR = "/resource/html5/public/plugins/";
-const EXTERNAL_PLUGINS = PLUGINS.map(function(p) { return PLUGINS_DIR + p + "/plugin.min.js" });
-
-function HTML5XBlock(runtime, element) {
+function HTML5XBlock(runtime, element, data) {
   const editorTab = document.getElementById("editor-tab");
   const contentSelector = "textarea#html5-textarea";
   var editor;
@@ -33,7 +29,7 @@ function HTML5XBlock(runtime, element) {
         invalid_elements: "",
         font_formats: FONTS,
         toolbar: "formatselect | fontselect | bold italic underline forecolor codesample | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | link unlink image | code",
-        external_plugins: EXTERNAL_PLUGINS,
+        external_plugins: data.external_plugins,
         formats: {
           code: {
             inline: 'code'
