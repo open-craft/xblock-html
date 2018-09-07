@@ -1,20 +1,18 @@
-<div class="wrapper-comp-editor" id="editor-tab" data-editor="{self.editor}">
+<div class="wrapper-comp-editor editor-with-buttons" id="editor-tab" data-editor="{self.editor}">
   <div class="html-editor editor">
     <div class="row">
       <textarea id="html5-textarea">{self.data}</textarea>
     </div>
   </div>
-</div>
-
-<div class="xblock-actions">
-  <span class="xblock-editor-error-message"></span>
-  <ul>
-    <li class="action-item">
-      <a href="#" class="button action-primary save-button" id="save-button">Save</a>
-    </li>
-
-    <li class="action-item">
-      <a href="#" class="button cancel-button">Cancel</a>
-    </li>
-  </ul>
+  <div class="xblock-actions">
+    <span class="xblock-editor-error-message"></span>
+    <ul>
+      <li class="action-item">
+        <a href="#" id="html5-save-button" class="button action-primary save-button">Save</a>
+      </li>
+      <li class="action-item">
+        <a href="#" id="html5-cancel-button" class="button cancel-button">Cancel</a>
+      </li>
+    </ul>
+  </div>
 </div>

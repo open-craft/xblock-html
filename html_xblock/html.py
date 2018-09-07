@@ -63,6 +63,7 @@ class HTML5XBlock(XBlock):
         self.add_scripts(frag)
 
         data = {
+            'editor': self.editor,
             'skin_url': self.runtime.local_resource_url(self, 'public/skin'),
             'external_plugins': self.get_editor_plugins()
         }
@@ -100,6 +101,8 @@ class HTML5XBlock(XBlock):
         A helper method to add all necessary styles to the fragment.
         :param frag: The fragment that will hold the scripts.
         """
+        frag.add_css(self.resource_string('static/css/html.css'))
+
         if self.editor != 'visual':
             frag.add_css(self.resource_string('public/plugins/codemirror/codemirror-4.8/lib/codemirror.css'))
 
