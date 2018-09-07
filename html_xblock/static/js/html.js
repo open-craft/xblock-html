@@ -15,7 +15,7 @@ function HTML5XBlock(runtime, element, data) {
 
     if (editorTab.dataset.editor === "visual") {
       editor = tinymce.init({
-        skin_url: "/resource/html5/public/skin",
+        skin_url: data.skin_url,
         theme: "modern",
         schema: "html5",
         convert_urls: false,

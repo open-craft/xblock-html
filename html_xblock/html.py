@@ -62,7 +62,10 @@ class HTML5XBlock(XBlock):
         self.add_stylesheets(frag)
         self.add_scripts(frag)
 
-        data = {'external_plugins': self.get_editor_plugins()}
+        data = {
+            'skin_url': self.runtime.local_resource_url(self, 'public/skin'),
+            'external_plugins': self.get_editor_plugins()
+        }
         frag.initialize_js('HTML5XBlock', data)
 
         return frag
