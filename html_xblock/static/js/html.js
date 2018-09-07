@@ -13,7 +13,7 @@ function HTML5XBlock(runtime, element) {
   const contentSelector = "textarea#html5-textarea";
   var editor;
 
-  window.addEventListener('load', function () {
+  $(document).ready(function(){
     const languageWrapper = document.querySelectorAll(".wrapper-view, .window-wrap");
     const directionality = (languageWrapper.length > 0) ? languageWrapper.dir : "ltr";
 
