@@ -4,16 +4,18 @@ import logging
 import pkg_resources
 from xblock.core import XBlock
 from xblock.fields import Scope, String
-
 from xblock.fragment import Fragment
+from xblockutils.resources import ResourceLoader
+from xblockutils.studio_editable import StudioEditableXBlockMixin, loader as studio_editable_loader
 
 from .bleaching import SanitizedText
 from .utils import _
 
 log = logging.getLogger('XBlock.HTML')  # pylint: disable=invalid-name
+loader = ResourceLoader(__name__)
 
 
-class HTML5XBlock(XBlock):
+class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
     """
     This XBlock will provide an HTML WYSIWYG interface in Studio to be rendered in LMS.
     """
@@ -37,6 +39,7 @@ class HTML5XBlock(XBlock):
         ],
         scope=Scope.settings
     )
+    editable_fields = ('display_name', 'editor')
 
     @staticmethod
     def resource_string(path):
@@ -57,8 +60,15 @@ class HTML5XBlock(XBlock):
         return frag
 
     def studio_view(self, context=None):  # pylint: disable=unused-argument
-        html = self.resource_string('static/html/studio.html')
-        frag = Fragment(html.format(self=self))
+        frag = Fragment()
+        context = {
+            'self': self,
+            'settings_template': studio_editable_loader.render_template('templates/studio_edit.html', {
+                'fields': self.get_editable_fields()
+            }),
+        }
+        frag.content = loader.render_template('static/html/studio.html', context)
+
         self.add_stylesheets(frag)
         self.add_scripts(frag)
 
@@ -114,6 +124,7 @@ class HTML5XBlock(XBlock):
         frag.add_javascript(self.resource_string('static/js/tinymce/tinymce.min.js'))
         frag.add_javascript(self.resource_string('static/js/tinymce/themes/modern/theme.min.js'))
         frag.add_javascript(self.resource_string('static/js/html.js'))
+        frag.add_javascript(studio_editable_loader.load_unicode('public/studio_edit.js'))
 
         if self.editor != 'visual':
             code_mirror_dir = 'public/plugins/codemirror/codemirror-4.8/'
@@ -141,3 +152,19 @@ class HTML5XBlock(XBlock):
     @property
     def sanitized_data(self):
         return SanitizedText(self.data)
+
+    def get_editable_fields(self):
+        fields = []
+        # Build a list of all the fields that can be edited:
+        for field_name in self.editable_fields:
+            field = self.fields[field_name]
+            assert field.scope in (Scope.content, Scope.settings), (
+                "Only Scope.content or Scope.settings fields can be used with "
+                "StudioEditableXBlockMixin. Other scopes are for user-specific data and are "
+                "not generally created/configured by content authors in Studio."
+            )
+            field_info = self._make_field_info(field_name, field)
+            if field_info is not None:
+                fields.append(field_info)
+
+        return fields
