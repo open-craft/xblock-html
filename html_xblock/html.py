@@ -12,7 +12,7 @@ from .bleaching import SanitizedText
 from .utils import _
 
 log = logging.getLogger('XBlock.HTML')  # pylint: disable=invalid-name
-loader = ResourceLoader(__name__)
+loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
 
 
 class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
@@ -157,11 +157,11 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         fields = []
         # Build a list of all the fields that can be edited:
         for field_name in self.editable_fields:
-            field = self.fields[field_name]
+            field = self.fields[field_name]  # pylint: disable=unsubscriptable-object
             assert field.scope in (Scope.content, Scope.settings), (
-                "Only Scope.content or Scope.settings fields can be used with "
-                "StudioEditableXBlockMixin. Other scopes are for user-specific data and are "
-                "not generally created/configured by content authors in Studio."
+                'Only Scope.content or Scope.settings fields can be used with '
+                'StudioEditableXBlockMixin. Other scopes are for user-specific data and are '
+                'not generally created/configured by content authors in Studio.'
             )
             field_info = self._make_field_info(field_name, field)
             if field_info is not None:
