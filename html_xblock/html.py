@@ -6,13 +6,13 @@ from xblock.core import XBlock
 from xblock.fields import Scope, String
 from xblock.fragment import Fragment
 from xblockutils.resources import ResourceLoader
-from xblockutils.studio_editable import StudioEditableXBlockMixin, loader as studio_editable_loader
+from xblockutils.studio_editable import StudioEditableXBlockMixin, loader
 
 from .bleaching import SanitizedText
 from .utils import _
 
 log = logging.getLogger('XBlock.HTML')  # pylint: disable=invalid-name
-loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
+xblock_loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
 
 
 class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
@@ -52,8 +52,9 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         """
         Return a fragment that contains the html for the student view
         """
-        html = self.resource_string('static/html/lms.html')
-        frag = Fragment(html.format(self=self))
+        frag = Fragment()
+        frag.content = xblock_loader.render_template('static/html/lms.html', {'self': self})
+
         frag.add_css(self.resource_string('public/plugins/codesample/css/prism.css'))
         frag.add_javascript(self.resource_string('public/plugins/codesample/js/prism.js'))
 
@@ -61,23 +62,25 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
     def studio_view(self, context=None):  # pylint: disable=unused-argument
         frag = Fragment()
+
+        settings_fields = self.get_editable_fields()
+        settings_page = loader.render_template('templates/studio_edit.html', {'fields': settings_fields})
         context = {
             'self': self,
-            'settings_template': studio_editable_loader.render_template('templates/studio_edit.html', {
-                'fields': self.get_editable_fields()
-            }),
+            'settings_page': settings_page,
         }
-        frag.content = loader.render_template('static/html/studio.html', context)
+
+        frag.content = xblock_loader.render_template('static/html/studio.html', context)
 
         self.add_stylesheets(frag)
         self.add_scripts(frag)
 
-        data = {
+        js_data = {
             'editor': self.editor,
             'skin_url': self.runtime.local_resource_url(self, 'public/skin'),
             'external_plugins': self.get_editor_plugins()
         }
-        frag.initialize_js('HTML5XBlock', data)
+        frag.initialize_js('HTML5XBlock', js_data)
 
         return frag
 
@@ -113,7 +116,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         """
         frag.add_css(self.resource_string('static/css/html.css'))
 
-        if self.editor != 'visual':
+        if self.editor == 'raw':
             frag.add_css(self.resource_string('public/plugins/codemirror/codemirror-4.8/lib/codemirror.css'))
 
     def add_scripts(self, frag):
@@ -124,9 +127,9 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         frag.add_javascript(self.resource_string('static/js/tinymce/tinymce.min.js'))
         frag.add_javascript(self.resource_string('static/js/tinymce/themes/modern/theme.min.js'))
         frag.add_javascript(self.resource_string('static/js/html.js'))
-        frag.add_javascript(studio_editable_loader.load_unicode('public/studio_edit.js'))
+        frag.add_javascript(loader.load_unicode('public/studio_edit.js'))
 
-        if self.editor != 'visual':
+        if self.editor == 'raw':
             code_mirror_dir = 'public/plugins/codemirror/codemirror-4.8/'
             frag.add_javascript(self.resource_string(code_mirror_dir + 'lib/codemirror.js'))
             frag.add_javascript(self.resource_string(code_mirror_dir + 'mode/xml/xml.js'))
@@ -141,12 +144,11 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
         :return: A list of URLs
         """
-        plugins_dir = 'public/plugins/'
-        plugin_file = '/plugin.min.js'
+        plugin_path = 'public/plugins/{plugin}/plugin.min.js'
         plugins = ['codesample', 'image', 'link', 'lists', 'textcolor', 'codemirror']
 
         return {
-            plugin: self.runtime.local_resource_url(self, plugins_dir + plugin + plugin_file) for plugin in plugins
+            plugin: self.runtime.local_resource_url(self, plugin_path.format(plugin=plugin)) for plugin in plugins
         }
 
     @property
@@ -154,7 +156,16 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         return SanitizedText(self.data)
 
     def get_editable_fields(self):
+        """
+        This method extracts the editable fields from this XBlock and returns
+        them after validating them.
+        The logic of this method uses part of StudioEditableXBlockMixin#submit_studio_edits
+        method to integrate it within our XBlock.
+        :return: A list of the editable fields with the information that
+                the template needs to render a form field for them.
+        """
         fields = []
+
         # Build a list of all the fields that can be edited:
         for field_name in self.editable_fields:
             field = self.fields[field_name]  # pylint: disable=unsubscriptable-object

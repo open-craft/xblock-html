@@ -3,6 +3,7 @@
     <button id="default-tab" class="tablinks" onclick="openTab(event, 'editor')">Editor</button>
     <button class="tablinks" onclick="openTab(event, 'settings')">Settings</button>
   </div>
+
   <div id="editor" class="tabcontent">
     <div class="html-editor editor">
       <div class="row">
@@ -21,7 +22,8 @@
       </ul>
     </div>
   </div>
+
   <div id="settings" class="tabcontent">
-    {{ settings_template | safe }}
+    {{ settings_page | safe }}
   </div>
 </div>

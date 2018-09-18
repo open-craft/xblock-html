@@ -6,9 +6,8 @@ const FONTS = CUSTOM_FONTS + STANDARD_FONTS;
 
 function openTab(evt, tabName) {
   /**
-   * This logic has been taken from https://www.w3schools.com/howto/howto_js_tabs.asp
+   * This method has been adopted as found in https://www.w3schools.com/howto/howto_js_tabs.asp
    */
-
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -22,14 +21,11 @@ function openTab(evt, tabName) {
   evt.currentTarget.className += " active";
 }
 
-function HTML5XBlock(runtime, element, data) {
+function configureTheEditor(data) {
   const contentSelector = "textarea#html5-textarea";
-  var editor;
-
   const languageWrapper = document.querySelectorAll(".wrapper-view, .window-wrap");
   const directionality = (languageWrapper.length > 0) ? languageWrapper.dir : "ltr";
-
-  document.getElementById("default-tab").click();
+  var editor;
 
   if (data.editor === "visual") {
     tinymce.remove(contentSelector);
@@ -78,15 +74,40 @@ function HTML5XBlock(runtime, element, data) {
     });
   }
 
+  return editor;
+}
+
+function getSettingsValues(fields) {
+  var values = {};
+  var notSet = []; // List of field names that should be set to default values
+  for (var i in fields) {
+    var field = fields[i];
+    if (field.isSet()) {
+      values[field.name] = field.val();
+    } else {
+      notSet.push(field.name);
+    }
+  }
+
+  return {
+    values: values,
+    defaults: notSet
+  }
+}
+
+function extractXBlockFields() {
+  /**
+   * The content of this function is as found in xblockutils#studio_edit.js
+   */
+  var elements;
   var fields = [];
 
-  var elements = document.querySelectorAll(".field-data-control");
+  elements = document.querySelectorAll(".field-data-control");
   Array.prototype.forEach.call(elements, function (item) {
     var $field = $(item);
     var $wrapper = $field.closest('li');
     var $resetButton = $wrapper.find('button.setting-clear');
     var type = $wrapper.data('cast');
-    var datepickerAvailable = (typeof $.fn.datepicker !== 'undefined'); // Studio includes datepicker jQuery plugin
 
     fields.push({
       name: $wrapper.data('field-name'),
@@ -110,9 +131,6 @@ function HTML5XBlock(runtime, element, data) {
             val = JSON.parse(val);
         }
         return val;
-      },
-      removeEditor: function () {
-        $field.tinymce().remove();
       }
     });
     var fieldChanged = function () {
@@ -127,6 +145,7 @@ function HTML5XBlock(runtime, element, data) {
       $resetButton.removeClass('active').addClass('inactive');
     });
 
+    var datepickerAvailable = (typeof $.fn.datepicker !== 'undefined'); // Studio includes datepicker jQuery plugin
     if (type == 'datepicker' && datepickerAvailable) {
       $field.datepicker('destroy');
       $field.datepicker({dateFormat: "m/d/yy"});
@@ -145,9 +164,6 @@ function HTML5XBlock(runtime, element, data) {
       isSet: function () {
         return $wrapper.hasClass('is-set');
       },
-      hasEditor: function () {
-        return false;
-      },
       val: function () {
         var val = [];
         $checkboxes.each(function () {
@@ -158,6 +174,7 @@ function HTML5XBlock(runtime, element, data) {
         return val;
       }
     });
+
     var fieldChanged = function () {
       // Field value has been modified:
       $wrapper.addClass('is-set');
@@ -176,31 +193,44 @@ function HTML5XBlock(runtime, element, data) {
     });
   });
 
-  var studio_submit = function (fields_data) {
+  return fields;
+}
+
+function HTML5XBlock(runtime, element, data) {
+  document.getElementById("default-tab").click();  // Will open the XBlock by showing the default tab
+
+  const editor = configureTheEditor(data);
+  var fields = extractXBlockFields();
+  var elements;
+
+  function studioSubmit() {
     const ContentHandlerUrl = runtime.handlerUrl(element, "update_content");
     const SettingsHandlerUrl = runtime.handlerUrl(element, "submit_studio_edits");
     const content = (data.editor === "visual") ? tinymce.get("html5-textarea").getContent() : editor.getValue();
+    const fields_data = getSettingsValues(fields);
     var errorMessage = "This may be happening because of an error with our server or your internet connection. Try refreshing the page or making sure you are online.";
 
     runtime.notify('save', {state: 'start', message: "Saving"});
     $.ajax({
-        type: "POST",
-        url: SettingsHandlerUrl,
-        data: JSON.stringify(fields_data),
-        dataType: "json",
-        global: false,  // Disable Studio's error handling that conflicts with studio's notify('save') and notify('cancel') :-/
-        success: function(response) {
-          $.ajax({
-            type: "POST",
-            url: ContentHandlerUrl,
-            data: JSON.stringify({"content": content}),
-            dataType: "json",
-            global: false,  // Disable Studio's error handling that conflicts with studio's notify('save') and notify('cancel') :-/
-            success: function(response) { runtime.notify('save', {state: 'end'}); }
-          }).fail(function (jqXHR) {
-            runtime.notify('error', {title: "Unable to update content", message: errorMessage});
-          })
-        }
+      type: "POST",
+      url: SettingsHandlerUrl,
+      data: JSON.stringify(fields_data),
+      dataType: "json",
+      global: false,  // Disable Studio's error handling that conflicts with studio's notify('save') and notify('cancel') :-/
+      success: function (response) {
+        $.ajax({
+          type: "POST",
+          url: ContentHandlerUrl,
+          data: JSON.stringify({"content": content}),
+          dataType: "json",
+          global: false,  // Disable Studio's error handling that conflicts with studio's notify('save') and notify('cancel') :-/
+          success: function (response) {
+            runtime.notify('save', {state: 'end'});
+          }
+        }).fail(function (jqXHR) {
+          runtime.notify('error', {title: "Unable to update content", message: errorMessage});
+        })
+      }
     }).fail(function (jqXHR) {
       if (jqXHR.responseText) { // Is there a more specific error message we can show?
         try {
@@ -217,30 +247,20 @@ function HTML5XBlock(runtime, element, data) {
       }
       runtime.notify('error', {title: "Unable to update settings", message: errorMessage});
     })
-  };
+  }
 
   elements = document.querySelectorAll(".save-button");
   Array.prototype.forEach.call(elements, function (elem) {
-    elem.addEventListener("click", function (e) {
-      e.preventDefault();
-      var values = {};
-      var notSet = []; // List of field names that should be set to default values
-      for (var i in fields) {
-        var field = fields[i];
-        if (field.isSet()) {
-          values[field.name] = field.val();
-        } else {
-          notSet.push(field.name);
-        }
-      }
-      studio_submit({values: values, defaults: notSet});
+    elem.addEventListener("click", function (event) {
+      event.preventDefault();
+      studioSubmit();
     });
   });
 
   elements = document.querySelectorAll(".cancel-button");
   Array.prototype.forEach.call(elements, function (elem) {
-    elem.addEventListener("click", function (e) {
-      e.preventDefault();
+    elem.addEventListener("click", function (event) {
+      event.preventDefault();
       runtime.notify('cancel', {});
     });
   });
