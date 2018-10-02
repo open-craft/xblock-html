@@ -1,5 +1,8 @@
 # HTML XBlock
 
+[![build](https://circleci.com/gh/ArtemBernatskyy/xblock-html/tree/wozniak%2Fci-setup.svg?style=shield)](https://circleci.com/gh/ArtemBernatskyy/xblock-html/tree/wozniak%2Fci-setup) [![codecov](https://codecov.io/gh/ArtemBernatskyy/xblock-html/branch/wozniak%2Fci-setup/graph/badge.svg)](https://codecov.io/gh/ArtemBernatskyy/xblock-html)
+
+
 A new HTML XBlock that is designed with security and embedding in mind. 
 
 ## Introduction

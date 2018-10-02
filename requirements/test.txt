@@ -1,0 +1,5 @@
+# Requirements for test runs
+
+-r base.txt
+
+pytest-cov==2.6.0
