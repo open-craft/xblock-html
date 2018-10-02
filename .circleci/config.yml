@@ -1,0 +1,56 @@
+defaults: &DEFAULT
+  working_directory: /home/circleci/xblock-html
+  docker:
+    - image: circleci/python:2.7-stretch-browsers  # or python-2.7-stretch-browsers-legacy
+      environment:
+        SCREEN_WIDTH: 1280
+        SCREEN_HEIGHT: 1024
+        SCREEN_DEPTH: 24
+    - image: selenium/standalone-firefox:3.14.0
+
+
+version: 2
+jobs:
+  build:
+    <<: *DEFAULT
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          name: Installing requirements
+          command: |
+            virtualenv env
+            source env/bin/activate
+            make requirements
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - env
+      - persist_to_workspace:
+          # this is done to persist virtualenv across workflows 
+          root: .
+          paths:
+            - env
+
+  test:
+    <<: *DEFAULT
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /home/circleci/xblock-html
+      - run:
+          name: Activate virtualenv
+          command: echo 'source env/bin/activate' >> $BASH_ENV
+      - run:
+          name: Running tests
+          command: make test
+
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
