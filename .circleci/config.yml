@@ -11,20 +11,19 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements/circle.txt" }}
+          key: deps1-{{ .Branch }}-{{ checksum "requirements/test.txt" }}
       - run:
           name: Installing requirements
           command: |
-            virtualenv env
-            source env/bin/activate
-            pip install -r requirements/circle.txt
+            [ ! -f /tmp/workspace/env/bin/activate ] && virtualenv /tmp/workspace/env
+            source /tmp/workspace/env/bin/activate
+            pip install -r requirements/test.txt
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements/circle.txt" }}
+          key: deps1-{{ .Branch }}-{{ checksum "requirements/test.txt" }}
           paths:
             - env
       - persist_to_workspace:
-          # this is done to persist virtualenv across workflows 
-          root: .
+          root: /tmp/workspace
           paths:
             - env
 
@@ -36,10 +35,20 @@ jobs:
           at: /home/circleci/xblock-html
       - run:
           name: Activate virtualenv
-          command: echo 'source env/bin/activate' >> $BASH_ENV
+          command: echo 'source /tmp/workspace/env/bin/activate' >> $BASH_ENV
       - run:
           name: Running tests
           command: tox
+
+  quality:
+    <<: *DEFAULT
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /home/circleci/xblock-html
+      - run:
+          name: Activate virtualenv
+          command: echo 'source /tmp/workspace/env/bin/activate' >> $BASH_ENV
       - run:
           name: Test Quality
           command: TOXENV=quality && tox
@@ -55,3 +64,6 @@ workflows:
       - test:
           requires:
             - build
+      - quality:
+          requires:
+            -  build
