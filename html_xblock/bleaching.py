@@ -19,6 +19,7 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
         self.adulterated_value = value
         self.sanitized_value = self.cleaner.clean(value)
+        self.value = self.sanitized_value if self.strict else self.adulterated_value
 
     def get_cleaner(self):
         """
@@ -128,13 +129,13 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
         """
         :return: The value of the text depending on the strictness level.
         """
-        return self.sanitized_value if self.strict else self.adulterated_value
+        return self.value
 
     def __unicode__(self):
         """
         :return: The value of the text depending on the strictness level.
         """
-        return self.sanitized_value if self.strict else self.adulterated_value
+        return self.value
 
     def __eq__(self, other):
         """

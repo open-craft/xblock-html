@@ -1,7 +1,7 @@
 <div class="wrapper-comp-editor editor-with-buttons" id="editor-tab" data-editor="{self.editor}">
   <div class="tab">
-    <button id="default-tab" class="tablinks" onclick="openTab(event, 'editor')">Editor</button>
-    <button class="tablinks" onclick="openTab(event, 'settings')">Settings</button>
+    <button class="tablinks" aria-selected="true" onclick="openTab(event, 'editor')" id="default-tab" >Editor</button>
+    <button class="tablinks" aria-selected="false" onclick="openTab(event, 'settings')">Settings</button>
   </div>
 
   <div id="editor" class="tabcontent">

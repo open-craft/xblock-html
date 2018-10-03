@@ -11,7 +11,7 @@ from xblockutils.studio_editable import StudioEditableXBlockMixin, loader
 from .bleaching import SanitizedText
 from .utils import _
 
-log = logging.getLogger('XBlock.HTML')  # pylint: disable=invalid-name
+log = logging.getLogger(__name__)  # pylint: disable=invalid-name
 xblock_loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
 
 
@@ -87,7 +87,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
     @XBlock.json_handler
     def update_content(self, data, suffix=''):  # pylint: disable=unused-argument
         """
-        This method will update the field, data content with the submitted data from studio_view
+        Update the saved HTML data with the new HTML passed in the JSON 'content' field.
         """
         self.data = data['content']
 
@@ -152,15 +152,17 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         }
 
     @property
-    def sanitized_data(self):
-        return SanitizedText(self.data)
+    def sanitized_html(self):
+        html = SanitizedText(self.data)
+        return html.value
 
     def get_editable_fields(self):
         """
         This method extracts the editable fields from this XBlock and returns
         them after validating them.
-        The logic of this method uses part of StudioEditableXBlockMixin#submit_studio_edits
-        method to integrate it within our XBlock.
+
+        Part of this method's copied from StudioEditableXBlockMixin#submit_studio_edits
+        with some modifications..
         :return: A list of the editable fields with the information that
                 the template needs to render a form field for them.
         """

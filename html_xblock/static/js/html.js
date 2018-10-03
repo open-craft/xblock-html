@@ -16,9 +16,11 @@ function openTab(evt, tabName) {
   tablinks = document.getElementsByClassName("tablinks");
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
+    tablinks[i].setAttribute("aria-selected", false);
   }
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
+  evt.currentTarget.setAttribute("aria-selected", true);
 }
 
 function configureTheEditor(data) {
@@ -249,19 +251,18 @@ function HTML5XBlock(runtime, element, data) {
     })
   }
 
-  elements = document.querySelectorAll(".save-button");
-  Array.prototype.forEach.call(elements, function (elem) {
-    elem.addEventListener("click", function (event) {
-      event.preventDefault();
-      studioSubmit();
-    });
-  });
+  element = typeof element[0] === 'undefined' ? element : element[0];  // Fix: sometimes edX passes a jQuery
+  // element, other times a DOM element
 
-  elements = document.querySelectorAll(".cancel-button");
-  Array.prototype.forEach.call(elements, function (elem) {
-    elem.addEventListener("click", function (event) {
+  const addClickFn = function (el, fn) {
+    el.addEventListener("click", function (event) {
       event.preventDefault();
-      runtime.notify('cancel', {});
+      fn(event);
     });
+  };
+
+  addClickFn(element.querySelector('.save-button'), studioSubmit);
+  addClickFn(element.querySelector('.cancel-button'), function () {
+    runtime.notify('cancel', {});
   });
 }
