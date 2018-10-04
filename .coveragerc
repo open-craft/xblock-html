@@ -5,3 +5,4 @@ source=xblock_html
 omit =
     *.tx*
     *static*
+    env
