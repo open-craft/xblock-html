@@ -54,7 +54,7 @@ jobs:
           command: echo 'source /tmp/workspace/env/bin/activate' >> $BASH_ENV
       - run:
           name: Test Quality
-          command: TOXENV=quality && tox
+          command: export TOXENV=quality && tox
 
 workflows:
   version: 2
