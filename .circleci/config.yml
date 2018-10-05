@@ -39,6 +39,9 @@ jobs:
       - run:
           name: Running tests
           command: tox
+      - run:
+          name: Generating code coverage
+          command: codecov
 
   quality:
     <<: *DEFAULT
@@ -52,9 +55,6 @@ jobs:
       - run:
           name: Test Quality
           command: TOXENV=quality && tox
-      - run:
-          name: Generating code coverage
-          command: codecov
 
 workflows:
   version: 2
