@@ -1,0 +1,13 @@
+[REPORTS]
+reports=no
+
+[FORMAT]
+max-line-length=120
+
+[MESSAGES CONTROL]
+disable=
+	too-many-ancestors,
+	missing-docstring
+
+[SIMILARITIES]
+min-similarity-lines=8

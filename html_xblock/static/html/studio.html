@@ -1,0 +1,29 @@
+<div class="wrapper-comp-editor editor-with-buttons" id="editor-tab" data-editor="{self.editor}">
+  <div class="tab">
+    <button class="tablinks" aria-selected="true" onclick="openTab(event, 'editor')" id="default-tab" >Editor</button>
+    <button class="tablinks" aria-selected="false" onclick="openTab(event, 'settings')">Settings</button>
+  </div>
+
+  <div id="editor" class="tabcontent">
+    <div class="html-editor editor">
+      <div class="row">
+        <textarea id="html5-textarea">{{ self.data }}</textarea>
+      </div>
+    </div>
+    <div class="xblock-actions">
+      <span class="xblock-editor-error-message"></span>
+      <ul>
+        <li class="action-item">
+          <a href="#" class="button action-primary save-button">Save</a>
+        </li>
+        <li class="action-item">
+          <a href="#" class="button cancel-button">Cancel</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="settings" class="tabcontent">
+    {{ settings_page | safe }}
+  </div>
+</div>
