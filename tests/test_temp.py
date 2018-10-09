@@ -1,8 +1,9 @@
+# pylint: skip-file
 """
 Just dummy test
 """
 
-from xblock_html.xblock_html import MyXBlock    # noqa
+from html_xblock.html import HTML5XBlock  # noqa
 
 
 def test_readme():

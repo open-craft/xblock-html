@@ -11,15 +11,16 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements/test.txt" }}
+          key: deps1-{{ .Branch }}--{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/quality.txt" }}
       - run:
           name: Installing requirements
           command: |
             [ ! -f /tmp/workspace/env/bin/activate ] && virtualenv /tmp/workspace/env
             source /tmp/workspace/env/bin/activate
             pip install -r requirements/test.txt
+            make requirements
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements/test.txt" }}
+          key: deps1-{{ .Branch }}--{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/quality.txt" }}
           paths:
             - env
       - persist_to_workspace:
