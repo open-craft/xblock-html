@@ -21,7 +21,7 @@ selfcheck: ## check that the Makefile is well-formed
 	@echo "The Makefile is well-formed."
 
 requirements:
-	pip install -q -r requirements.txt --exists-action w
+	pip install -q -r requirements/base.txt --exists-action w
 	pip install -e .
 	@echo "Finished installing requirements."
 

@@ -1,17 +1,68 @@
-### Python artifacts
-*.pyc
-*.egg-info
+*.py[cod]
+__pycache__
 
-### Editor and IDE artifacts
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+env
+venv
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.cache/
+.coverage
+.coverage.*
+.pytest_cache
+.tox
+coverage.xml
+htmlcov/
+
+# Translations
+*.mo
+
+# IDEs and text editors
 *~
 *.swp
-*.orig
-/nbproject
 .idea/
-.redcar/
-codekit-config.json
+.project
 .pycharm_helpers/
+.pydevproject
 
-### Testing artifacts
-.coverage
-var/
+# The Silver Searcher
+.agignore
+
+# OS X artifacts
+*.DS_Store
+
+# Logging
+log/
+logs/
+chromedriver.log
+ghostdriver.log
+
+# Complexity
+output/*.html
+output/*/index.html
+
+# Sphinx
+docs/_build
+
+# Cookiecutter
+output/
+dj-package/

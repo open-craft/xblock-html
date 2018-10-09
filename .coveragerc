@@ -1,0 +1,8 @@
+[run]
+branch = True
+data_file = .coverage
+source=html_xblock
+omit =
+    *.tx*
+    *static*
+    env
