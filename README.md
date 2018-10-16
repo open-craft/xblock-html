@@ -1,5 +1,8 @@
 # HTML XBlock
 
+[![build](https://circleci.com/gh/open-craft/xblock-html/tree/master.svg?style=shield)](https://circleci.com/gh/open-craft/xblock-html/tree/master) [![codecov](https://codecov.io/gh/open-craft/xblock-html/branch/master/graph/badge.svg)](https://codecov.io/gh/open-craft/xblock-html)
+
+
 A new HTML XBlock that is designed with security and embedding in mind. 
 
 ## Introduction

@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+Helpers functions for HTML XBlock
+"""
 
 
 def _(text):

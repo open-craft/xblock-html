@@ -1,3 +1,6 @@
+"""
+A new HTML XBlock that is designed with security and embedding in mind.
+"""
 import bleach
 
 
