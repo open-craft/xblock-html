@@ -1,6 +1,7 @@
-"""This XBlock will help creating a secure and easy-to-use HTML blocks in edx-platform."""
+"""This XBlock help creating a secure and easy-to-use HTML blocks in edx-platform."""
 
 import logging
+
 import pkg_resources
 from xblock.core import XBlock
 from xblock.fields import Scope, String
@@ -19,6 +20,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
     """
     This XBlock will provide an HTML WYSIWYG interface in Studio to be rendered in LMS.
     """
+
     display_name = String(
         display_name=_('Display Name'),
         help=_('The display name for this component.'),
@@ -61,6 +63,9 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         return frag
 
     def studio_view(self, context=None):  # pylint: disable=unused-argument
+        """
+        Return a fragment that contains the html for the Studio view
+        """
         frag = Fragment()
 
         settings_fields = self.get_editable_fields()
@@ -153,11 +158,15 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
     @property
     def sanitized_html(self):
+        """
+        A property that returns a sanitized text field of the existing data object.
+        """
         html = SanitizedText(self.data)
         return html.value
 
     def get_editable_fields(self):
         """
+
         This method extracts the editable fields from this XBlock and returns
         them after validating them.
 
@@ -165,6 +174,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         with some modifications..
         :return: A list of the editable fields with the information that
                 the template needs to render a form field for them.
+
         """
         fields = []
 

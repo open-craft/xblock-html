@@ -1,0 +1,67 @@
+defaults: &DEFAULT
+  working_directory: /home/circleci/xblock-html
+  docker:
+    - image: circleci/python:2.7
+
+
+version: 2
+jobs:
+  build:
+    <<: *DEFAULT
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}--{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/quality.txt" }}
+      - run:
+          name: Installing requirements
+          command: |
+            [ ! -f /tmp/workspace/env/bin/activate ] && virtualenv /tmp/workspace/env
+            source /tmp/workspace/env/bin/activate
+            make requirements
+            pip install -U pip wheel codecov
+      - save_cache:
+          key: deps2-{{ .Branch }}--{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/quality.txt" }}
+          paths:
+            - env
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - env
+
+  test:
+    <<: *DEFAULT
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Activate virtualenv
+          command: echo 'source /tmp/workspace/env/bin/activate' >> $BASH_ENV
+      - run:
+          name: Running tests
+          command: make unit-coverage
+
+  quality:
+    <<: *DEFAULT
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Activate virtualenv
+          command: echo 'source /tmp/workspace/env/bin/activate' >> $BASH_ENV
+      - run:
+          name: Test Quality
+          command: make quality
+
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - quality:
+          requires:
+            -  build
