@@ -32,7 +32,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         display_name=_('Allow JavaScript execution'),
         help=_('Whether js should be allowed or not in this module'),
         default=False,
-        scope=Scope.settings
+        scope=Scope.content
     )
     editor = String(
         help=_(
