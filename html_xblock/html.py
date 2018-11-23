@@ -111,6 +111,21 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
             ('HTML5XBlock',
              """<html5/>
              """),
+            ('HTML5XBlock with sanitized content',
+             """<html5 data="My custom &lt;b&gt;html&lt;/b&gt;"/>
+             """),
+            ('HTML5XBlock with JavaScript',
+             """<html5
+                    data="My custom &lt;b&gt;html&lt;/b&gt;&lt;script&gt;alert('With javascript');&lt;/script&gt;"
+                    allow_javascript="true"
+                />
+             """),
+            ('HTML5XBlock with JavaScript not allowed',
+             """<html5
+                    data="My custom &lt;b&gt;html&lt;/b&gt;&lt;script&gt;alert('With javascript');&lt;/script&gt;"
+                    allow_javascript="false"
+                />
+             """),
             ('Multiple HTML5XBlock',
              """<vertical_demo>
                 <html5/>
