@@ -1,4 +1,14 @@
-.html-editor, .editor-with-buttons, [class*="view-"] .modal-window .CodeMirror {
+/* .modal-type-html5 [class*="view-"] .modal-lg.modal-editor .modal-content {
+    height: 500px;
+} */
+
+.html-editor,
+.wrapper-comp-settings.is-active.editor-with-buttons {
+    height: 320px;
+}
+
+[class*="view-"] .modal-window .CodeMirror,
+[class*="view-"] .modal-window .editor-with-buttons.wrapper-comp-settings .list-input.settings-list {
     height: 322px;
 }
 

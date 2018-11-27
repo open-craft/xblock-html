@@ -30,7 +30,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
     data = String(help=_('Html contents to display for this module'), default=u'', scope=Scope.content)
     allow_javascript = Boolean(
         display_name=_('Allow JavaScript execution'),
-        help=_('Whether js should be allowed or not in this module'),
+        help=_('Whether JavaScript should be allowed or not in this module'),
         default=False,
         scope=Scope.content
     )
