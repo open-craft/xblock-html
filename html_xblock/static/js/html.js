@@ -211,7 +211,7 @@ function HTML5XBlock(runtime, element, data) {
     const content = (data.editor === "visual") ? tinymce.get("html5-textarea").getContent() : editor.getValue();
     const fields_data = getSettingsValues(fields);
     var errorMessage = "This may be happening because of an error with our server or your internet connection. Try refreshing the page or making sure you are online.";
-
+    
     runtime.notify('save', {state: 'start', message: "Saving"});
     $.ajax({
       type: "POST",
@@ -261,8 +261,12 @@ function HTML5XBlock(runtime, element, data) {
     });
   };
 
-  addClickFn(element.querySelector('.save-button'), studioSubmit);
-  addClickFn(element.querySelector('.cancel-button'), function () {
-    runtime.notify('cancel', {});
+  element.querySelectorAll('.save-button').forEach(button => {
+    addClickFn(button, studioSubmit);
+  });
+  element.querySelectorAll('.cancel-button').forEach(button => {
+    addClickFn(button, function () {
+      runtime.notify('cancel', {});
+    });
   });
 }
