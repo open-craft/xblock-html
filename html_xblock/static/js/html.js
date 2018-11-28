@@ -61,7 +61,7 @@ function configureTheEditor(data) {
       codemirror: {
         width: 770,
         height: 454,
-        saveCursorPosition: true,
+        saveCursorPosition: false, // Caret Markers were introducing invalid chars (https://github.com/christiaan/tinymce-codemirror/issues/26)
         config: {
           mode: 'text/html',
         }
