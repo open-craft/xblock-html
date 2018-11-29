@@ -61,7 +61,7 @@ function configureTheEditor(data) {
       codemirror: {
         width: 770,
         height: 454,
-        saveCursorPosition: true,
+        saveCursorPosition: false, // Caret Markers were introducing invalid chars (https://github.com/christiaan/tinymce-codemirror/issues/26)
         config: {
           mode: 'text/html',
         }
@@ -261,8 +261,12 @@ function HTML5XBlock(runtime, element, data) {
     });
   };
 
-  addClickFn(element.querySelector('.save-button'), studioSubmit);
-  addClickFn(element.querySelector('.cancel-button'), function () {
-    runtime.notify('cancel', {});
+  element.querySelectorAll('.save-button').forEach(button => {
+    addClickFn(button, studioSubmit);
+  });
+  element.querySelectorAll('.cancel-button').forEach(button => {
+    addClickFn(button, function () {
+      runtime.notify('cancel', {});
+    });
   });
 }

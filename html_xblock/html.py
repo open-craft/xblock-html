@@ -4,7 +4,7 @@ import logging
 
 import pkg_resources
 from xblock.core import XBlock
-from xblock.fields import Scope, String
+from xblock.fields import Boolean, Scope, String
 from xblock.fragment import Fragment
 from xblockutils.resources import ResourceLoader
 from xblockutils.studio_editable import StudioEditableXBlockMixin, loader
@@ -28,6 +28,12 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         default=_('Text')
     )
     data = String(help=_('Html contents to display for this module'), default=u'', scope=Scope.content)
+    allow_javascript = Boolean(
+        display_name=_('Allow JavaScript execution'),
+        help=_('Whether JavaScript should be allowed or not in this module'),
+        default=False,
+        scope=Scope.content
+    )
     editor = String(
         help=_(
             'Select Visual to enter content and have the editor automatically create the HTML. Select Raw to edit '
@@ -41,7 +47,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         ],
         scope=Scope.settings
     )
-    editable_fields = ('display_name', 'editor')
+    editable_fields = ('display_name', 'editor', 'allow_javascript')
 
     @staticmethod
     def resource_string(path):
@@ -105,6 +111,21 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
             ('HTML5XBlock',
              """<html5/>
              """),
+            ('HTML5XBlock with sanitized content',
+             """<html5 data="My custom &lt;b&gt;html&lt;/b&gt;"/>
+             """),
+            ('HTML5XBlock with JavaScript',
+             """<html5
+                    data="My custom &lt;b&gt;html&lt;/b&gt;&lt;script&gt;alert('With javascript');&lt;/script&gt;"
+                    allow_javascript="true"
+                />
+             """),
+            ('HTML5XBlock with JavaScript not allowed',
+             """<html5
+                    data="My custom &lt;b&gt;html&lt;/b&gt;&lt;script&gt;alert('With javascript');&lt;/script&gt;"
+                    allow_javascript="false"
+                />
+             """),
             ('Multiple HTML5XBlock',
              """<vertical_demo>
                 <html5/>
@@ -163,6 +184,16 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         """
         html = SanitizedText(self.data)
         return html.value
+
+    @property
+    def html(self):
+        """
+        A property that returns this module content data, according to `allow_javascript`.
+        I.E: Sanitezed data if it's true or plain data if it's false.
+        """
+        if self.allow_javascript:
+            return self.data
+        return self.sanitized_html
 
     def get_editable_fields(self):
         """
