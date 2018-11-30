@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-29 23:01-0800\n"
+"POT-Creation-Date: 2018-11-29 23:24-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,6 +60,21 @@ msgstr ""
 msgid "Raw"
 msgstr ""
 
+#: html_xblock.py:223
+msgid ""
+"Only Scope.content or Scope.settings fields can be used with "
+"StudioEditableXBlockMixin. Other scopes are for user-specific data and are "
+"not generally created/configured by content authors in Studio."
+msgstr ""
+
 #: html_xblock.py:256
 msgid "Dummy"
+msgstr ""
+
+#: static/html/studio.html:17
+msgid "Save"
+msgstr ""
+
+#: static/html/studio.html:20
+msgid "Cancel"
 msgstr ""

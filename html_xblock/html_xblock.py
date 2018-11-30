@@ -219,7 +219,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         # Build a list of all the fields that can be edited:
         for field_name in self.editable_fields:
             field = self.fields[field_name]  # pylint: disable=unsubscriptable-object
-            assert field.scope in (Scope.content, Scope.settings), (
+            assert field.scope in (Scope.content, Scope.settings), _(
                 'Only Scope.content or Scope.settings fields can be used with '
                 'StudioEditableXBlockMixin. Other scopes are for user-specific data and are '
                 'not generally created/configured by content authors in Studio.'

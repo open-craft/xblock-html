@@ -203,7 +203,6 @@ function HTML5XBlock(runtime, element, data) {
 
   const editor = configureTheEditor(data);
   var fields = extractXBlockFields();
-  var elements;
 
   function studioSubmit() {
     const ContentHandlerUrl = runtime.handlerUrl(element, "update_content");
@@ -268,5 +267,9 @@ function HTML5XBlock(runtime, element, data) {
     addClickFn(button, function () {
       runtime.notify('cancel', {});
     });
+  });
+
+  $(function ($) {
+    var gettext = HTML5XBlocki18n.gettext;
   });
 }
