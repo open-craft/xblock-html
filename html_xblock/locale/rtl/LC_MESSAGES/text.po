@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-29 23:24-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: rtl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: html_xblock.py
+msgid "Display Name"
+msgstr "Đᴉsdlɐʎ Nɐɯǝ"
+
+#: html_xblock.py
+msgid "The display name for this component."
+msgstr "Ŧɥǝ dᴉsdlɐʎ nɐɯǝ ɟøɹ ʇɥᴉs ɔøɯdønǝnʇ."
+
+#: html_xblock.py
+msgid "Text"
+msgstr "Ŧǝxʇ"
+
+#: html_xblock.py
+msgid "Html contents to display for this module"
+msgstr "Ħʇɯl ɔønʇǝnʇs ʇø dᴉsdlɐʎ ɟøɹ ʇɥᴉs ɯødnlǝ"
+
+#: html_xblock.py
+msgid "Allow JavaScript execution"
+msgstr "Ⱥlløʍ ɈɐʌɐSɔɹᴉdʇ ǝxǝɔnʇᴉøn"
+
+#: html_xblock.py
+msgid "Whether JavaScript should be allowed or not in this module"
+msgstr "Wɥǝʇɥǝɹ ɈɐʌɐSɔɹᴉdʇ sɥønld bǝ ɐlløʍǝd øɹ nøʇ ᴉn ʇɥᴉs ɯødnlǝ"
+
+#: html_xblock.py
+msgid ""
+"Select Visual to enter content and have the editor automatically create the "
+"HTML. Select Raw to edit HTML directly. If you change this setting, you must"
+" save the component and then re-open it for editing."
+msgstr ""
+"Sǝlǝɔʇ Vᴉsnɐl ʇø ǝnʇǝɹ ɔønʇǝnʇ ɐnd ɥɐʌǝ ʇɥǝ ǝdᴉʇøɹ ɐnʇøɯɐʇᴉɔɐllʎ ɔɹǝɐʇǝ ʇɥǝ "
+"ĦŦMŁ. Sǝlǝɔʇ Ɍɐʍ ʇø ǝdᴉʇ ĦŦMŁ dᴉɹǝɔʇlʎ. Ɨɟ ʎøn ɔɥɐnƃǝ ʇɥᴉs sǝʇʇᴉnƃ, ʎøn ɯnsʇ"
+" sɐʌǝ ʇɥǝ ɔøɯdønǝnʇ ɐnd ʇɥǝn ɹǝ-ødǝn ᴉʇ ɟøɹ ǝdᴉʇᴉnƃ."
+
+#: html_xblock.py
+msgid "Editor"
+msgstr "Ɇdᴉʇøɹ"
+
+#: html_xblock.py
+msgid "Visual"
+msgstr "Vᴉsnɐl"
+
+#: html_xblock.py
+msgid "Raw"
+msgstr "Ɍɐʍ"
+
+#: html_xblock.py
+msgid ""
+"Only Scope.content or Scope.settings fields can be used with "
+"StudioEditableXBlockMixin. Other scopes are for user-specific data and are "
+"not generally created/configured by content authors in Studio."
+msgstr ""
+"Ønlʎ Sɔødǝ.ɔønʇǝnʇ øɹ Sɔødǝ.sǝʇʇᴉnƃs ɟᴉǝlds ɔɐn bǝ nsǝd ʍᴉʇɥ "
+"SʇndᴉøɆdᴉʇɐblǝXɃløɔʞMᴉxᴉn. Øʇɥǝɹ sɔødǝs ɐɹǝ ɟøɹ nsǝɹ-sdǝɔᴉɟᴉɔ dɐʇɐ ɐnd ɐɹǝ "
+"nøʇ ƃǝnǝɹɐllʎ ɔɹǝɐʇǝd/ɔønɟᴉƃnɹǝd bʎ ɔønʇǝnʇ ɐnʇɥøɹs ᴉn Sʇndᴉø."
+
+#: html_xblock.py
+msgid "Dummy"
+msgstr "Đnɯɯʎ"
+
+#: static/html/studio.html
+msgid "Save"
+msgstr "Sɐʌǝ"
+
+#: static/html/studio.html
+msgid "Cancel"
+msgstr "Ȼɐnɔǝl"

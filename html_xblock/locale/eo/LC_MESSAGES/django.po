@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-29 23:01-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: eo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: html_xblock/html_xblock.py
+msgid "Display Name"
+msgstr "Dïspläý Nämé Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: html_xblock/html_xblock.py
+msgid "The display name for this component."
+msgstr ""
+"Thé dïspläý nämé för thïs çömpönént. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυ#"
+
+#: html_xblock/html_xblock.py
+msgid "Text"
+msgstr "Téxt Ⱡ'σяєм ι#"
+
+#: html_xblock/html_xblock.py
+msgid "Html contents to display for this module"
+msgstr ""
+"Html çönténts tö dïspläý för thïs mödülé Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυя#"
+
+#: html_xblock/html_xblock.py
+msgid "Allow JavaScript execution"
+msgstr "Àllöw JäväSçrïpt éxéçütïön Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕ#"
+
+#: html_xblock/html_xblock.py
+msgid "Whether JavaScript should be allowed or not in this module"
+msgstr ""
+"Whéthér JäväSçrïpt shöüld ßé ällöwéd ör nöt ïn thïs mödülé Ⱡ'σяєм ιρѕυм "
+"∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α#"
+
+#: html_xblock/html_xblock.py
+msgid ""
+"Select Visual to enter content and have the editor automatically create the "
+"HTML. Select Raw to edit HTML directly. If you change this setting, you must"
+" save the component and then re-open it for editing."
+msgstr ""
+"Séléçt Vïsüäl tö éntér çöntént änd hävé thé édïtör äütömätïçällý çréäté thé "
+"HTML. Séléçt Räw tö édït HTML dïréçtlý. Ìf ýöü çhängé thïs séttïng, ýöü müst"
+" sävé thé çömpönént änd thén ré-öpén ït för édïtïng. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт "
+"αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ єιυѕмσ∂ тємρσя ιη¢ι∂ι∂υηт υт "
+"łαвσяє єт ∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм νєηιαм, qυιѕ ησѕтяυ∂ "
+"єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα ¢σммσ∂σ ¢σηѕєqυαт. ∂υιѕ "
+"αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт єѕѕє ¢ιłłυм ∂σłσяє єυ "
+"ƒυgιαт ηυłłα ραяιαтυя. єχ¢єρтєυя ѕιηт σ¢#"
+
+#: html_xblock/html_xblock.py
+msgid "Editor"
+msgstr "Édïtör Ⱡ'σяєм ιρѕυ#"
+
+#: html_xblock/html_xblock.py
+msgid "Visual"
+msgstr "Vïsüäl Ⱡ'σяєм ιρѕυ#"
+
+#: html_xblock/html_xblock.py
+msgid "Raw"
+msgstr "Räw Ⱡ'σяєм#"
+
+#: html_xblock/html_xblock.py
+msgid "Dummy"
+msgstr "Dümmý Ⱡ'σяєм ιρѕ#"
