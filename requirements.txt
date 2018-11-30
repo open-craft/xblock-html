@@ -1,2 +1,7 @@
 bleach==2.1.4
-git+https://github.com/edx/xblock-utils.git@v1.0.5#egg=xblock-utils==1.0.5
+git+https://github.com/edx/xblock-utils.git@v1.1.1#egg=xblock-utils==1.1.1
+git+https://github.com/edx/i18n-tools.git
+django-statici18n==1.8.0
+edx-i18n-tools==0.4.7
+Mako==1.0.7
+transifex-client==0.13.4

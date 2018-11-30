@@ -3,6 +3,7 @@
 import logging
 
 import pkg_resources
+from django.utils import translation
 from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
 from xblock.fragment import Fragment
@@ -84,6 +85,12 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         frag.content = xblock_loader.render_template('static/html/studio.html', context)
 
         self.add_stylesheets(frag)
+
+        # Add i18n js
+        statici18n_js_url = self._get_statici18n_js_url()
+        if statici18n_js_url:
+            frag.add_javascript_url(self.runtime.local_resource_url(self, statici18n_js_url))
+
         self.add_scripts(frag)
 
         js_data = {
@@ -152,7 +159,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         """
         frag.add_javascript(self.resource_string('static/js/tinymce/tinymce.min.js'))
         frag.add_javascript(self.resource_string('static/js/tinymce/themes/modern/theme.min.js'))
-        frag.add_javascript(self.resource_string('static/js/html.js'))
+        frag.add_javascript(self.resource_string('static/js/html_xblock.js'))
         frag.add_javascript(loader.load_unicode('public/studio_edit.js'))
 
         if self.editor == 'raw':
@@ -222,3 +229,28 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
                 fields.append(field_info)
 
         return fields
+
+    @staticmethod
+    def _get_statici18n_js_url():
+        """
+        Returns the Javascript translation file for the currently selected language, if any.
+        Defaults to English if available.
+        """
+        locale_code = translation.get_language()
+        if locale_code is None:
+            return None
+        text_js = 'public/js/translations/{locale_code}/text.js'
+        lang_code = locale_code.split('-')[0]
+        for code in (locale_code, lang_code, 'en'):
+            resource_loader = ResourceLoader(__name__)
+            if pkg_resources.resource_exists(
+                    resource_loader.module_name, text_js.format(locale_code=code)):
+                return text_js.format(locale_code=code)
+        return None
+
+    @staticmethod
+    def get_dummy():
+        """
+        Dummy method to generate initial i18n
+        """
+        return translation.gettext_noop('Dummy')
