@@ -29,13 +29,14 @@ dev.run: dev.clean dev.build ## Clean, build and run test image
 extract_translations: symlink_translations ## extract strings to be translated, outputting .po files
 	cd $(PACKAGE_NAME) && i18n_tool extract
 	mv $(EXTRACTED_DJANGO) $(EXTRACTED_TEXT)
+	@ echo "Checking and moving JS translations to the XBlock's propper directory..."
 	if [ -f "$(EXTRACTED_DJANGOJS)" ]; then cat $(EXTRACTED_DJANGOJS) >> $(EXTRACTED_TEXT); rm $(EXTRACTED_DJANGOJS); fi
 
 compile_translations: symlink_translations ## compile translation files, outputting .mo files for each supported language
 	cd $(PACKAGE_NAME) && i18n_tool generate
 	python manage.py compilejsi18n --namespace $(PACKAGE_NAME)i18n --output $(JS_TARGET)
 
-detect_changed_source_translations:
+detect_changed_source_translations:  ## Check if the source translations have been changed.
 	cd $(PACKAGE_NAME) && i18n_tool changed
 
 dummy_translations: ## generate dummy translation (.po) files

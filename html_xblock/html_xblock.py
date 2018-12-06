@@ -159,7 +159,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         """
         frag.add_javascript(self.resource_string('static/js/tinymce/tinymce.min.js'))
         frag.add_javascript(self.resource_string('static/js/tinymce/themes/modern/theme.min.js'))
-        frag.add_javascript(self.resource_string('static/js/html_xblock.js'))
+        frag.add_javascript(self.resource_string('static/js/src/html_xblock.js'))
         frag.add_javascript(loader.load_unicode('public/studio_edit.js'))
 
         if self.editor == 'raw':
