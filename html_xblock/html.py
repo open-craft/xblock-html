@@ -3,6 +3,7 @@
 import logging
 
 import pkg_resources
+from xblock.completable import CompletableXBlockMixin
 from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
 from xblock.fragment import Fragment
@@ -16,7 +17,7 @@ log = logging.getLogger(__name__)  # pylint: disable=invalid-name
 xblock_loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
 
 
-class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
+class HTML5XBlock(StudioEditableXBlockMixin, CompletableXBlockMixin, XBlock):
     """
     This XBlock will provide an HTML WYSIWYG interface in Studio to be rendered in LMS.
     """
@@ -47,7 +48,13 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         ],
         scope=Scope.settings
     )
-    editable_fields = ('display_name', 'editor', 'allow_javascript')
+    has_custom_completion = Boolean(
+        display_name=_('Use custom completion'),
+        help=_('If `True`, you need to explicitly click `#complete` via javascript to mark the block as completed.'),
+        default=False,
+        scope=Scope.content
+    )
+    editable_fields = ('display_name', 'editor', 'allow_javascript', 'has_custom_completion')
 
     @staticmethod
     def resource_string(path):
@@ -65,6 +72,10 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
         frag.add_css(self.resource_string('public/plugins/codesample/css/prism.css'))
         frag.add_javascript(self.resource_string('public/plugins/codesample/js/prism.js'))
+
+        if self.has_custom_completion:
+            frag.add_javascript(self.resource_string('static/js/html_completion.js'))
+            frag.initialize_js('HTML5CompletionXBlock')
 
         return frag
 
@@ -222,3 +233,11 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
                 fields.append(field_info)
 
         return fields
+
+    @XBlock.json_handler
+    def complete(self, _data, _suffix=''):
+        """
+        Use new completion API for marking the block as completed.
+        """
+        if self.has_custom_completion:
+            self.emit_completion(1.0)
