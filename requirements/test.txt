@@ -7,6 +7,7 @@ lazy==1.1
 pytest-cov==2.6.0
 tox==3.1.3
 tox-battery==0.5.1
+mock==3.0.5
 
 # Github requirements
 git+https://github.com/edx/django-pyfs.git@1.0.3#egg=django-pyfs==1.0.3
