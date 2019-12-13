@@ -5,6 +5,7 @@ from __future__ import print_function
 
 import unittest
 
+from mock import Mock
 from xblock.field_data import DictFieldData
 from xblock.test.tools import TestRuntime
 
@@ -55,3 +56,44 @@ class TestHTMLXBlock(unittest.TestCase):
         self.assertEqual(block.allow_javascript, True)
         fragment = block.student_view()
         self.assertIn('<div>Safe <b>html</b><script>alert(\'javascript\');</script></div>', fragment.content)
+
+    def test_substitution_no_system(self):
+        """
+        Test that the substitution is not performed when `system` is not present inside XBlock.
+        """
+        field_data = DictFieldData({'data': 'Safe <b>%%USER_ID%% %%COURSE_ID%%</b>'})
+        block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
+        fragment = block.student_view()
+        self.assertIn('<div>Safe <b>%%USER_ID%% %%COURSE_ID%%</b></div>', fragment.content)
+
+    def test_substitution_not_found(self):
+        """
+        Test that the keywords are not replaced when they're not found.
+        """
+        field_data = DictFieldData({'data': 'Safe <b>%%USER_ID%% %%COURSE_ID%%</b>'})
+        block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
+        block.system = Mock(anonymous_student_id=None)
+        fragment = block.student_view()
+        self.assertIn('<div>Safe <b>%%USER_ID%% %%COURSE_ID%%</b></div>', fragment.content)
+
+    def test_user_id_substitution(self):
+        """
+        Test replacing %%USER_ID%% with anonymous user ID.
+        """
+        field_data = DictFieldData({'data': 'Safe <b>%%USER_ID%%</b>'})
+        block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
+        block.system = Mock(anonymous_student_id='test_user')
+        fragment = block.student_view()
+        self.assertIn('<div>Safe <b>test_user</b></div>', fragment.content)
+
+    def test_course_id_substitution(self):
+        """
+        Test replacing %%COURSE_ID%% with HTML representation of course key.
+        """
+        field_data = DictFieldData({'data': 'Safe <b>%%COURSE_ID%%</b>'})
+        block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
+        course_locator_mock = Mock()
+        course_locator_mock.html_id = Mock(return_value='test_course')
+        block.system = Mock(course_id=course_locator_mock)
+        fragment = block.student_view()
+        self.assertIn('<div>Safe <b>test_course</b></div>', fragment.content)

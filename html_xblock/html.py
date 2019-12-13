@@ -177,22 +177,55 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
             plugin: self.runtime.local_resource_url(self, plugin_path.format(plugin=plugin)) for plugin in plugins
         }
 
+    def substitute_keywords(self):
+        """
+        Replaces all %%-encoded words using KEYWORD_FUNCTION_MAP mapping functions.
+
+        Iterates through all keywords that must be substituted and replaces them by calling the corresponding functions
+        stored in `keywords`. If the function throws a specified exception, the substitution is not performed.
+
+        Functions stored in `keywords` must either:
+            - return a replacement string
+            - throw `KeyError` or `AttributeError`, `TypeError`.
+        """
+        data = self.data
+        system = getattr(self, 'system', None)
+        if not system:  # This shouldn't happen, but if `system` is missing, then skip substituting keywords.
+            return data
+
+        keywords = {
+            '%%USER_ID%%': lambda: getattr(system, 'anonymous_student_id'),
+            '%%COURSE_ID%%': lambda: getattr(system, 'course_id').html_id(),
+        }
+
+        for key, substitutor in keywords.items():
+            if key in data:
+                try:
+                    data = data.replace(key, substitutor())
+                except (KeyError, AttributeError, TypeError):
+                    # Do not replace the keyword when substitutor is not present.
+                    pass
+
+        return data
+
     @property
     def sanitized_html(self):
         """
         A property that returns a sanitized text field of the existing data object.
         """
-        html = SanitizedText(self.data)
+        data = self.substitute_keywords()
+        html = SanitizedText(data)
         return html.value
 
     @property
     def html(self):
         """
         A property that returns this module content data, according to `allow_javascript`.
-        I.E: Sanitezed data if it's true or plain data if it's false.
+        I.E: Sanitized data if it's true or plain data if it's false.
         """
         if self.allow_javascript:
-            return self.data
+            data = self.substitute_keywords()
+            return data
         return self.sanitized_html
 
     def get_editable_fields(self):
