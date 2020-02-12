@@ -1,2 +1,2 @@
 """HTML XBlock module"""
-from .html import HTML5XBlock
+from .html import ExcludedHTML5XBlock, HTML5XBlock

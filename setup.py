@@ -36,6 +36,7 @@ setup(
     entry_points={
         'xblock.v1': [
             'html5 = html_xblock:HTML5XBlock',
+            'excluded_html5 = html_xblock:ExcludedHTML5XBlock',
         ]
     },
     package_data=package_data("html_xblock", ["static", "public"]),
