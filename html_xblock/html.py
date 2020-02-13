@@ -3,6 +3,7 @@
 import logging
 
 import pkg_resources
+from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
 from xblock.fragment import Fragment
@@ -255,3 +256,18 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
                 fields.append(field_info)
 
         return fields
+
+
+class ExcludedHTML5XBlock(HTML5XBlock):
+    """
+    This XBlock is excluded from the completion calculations.
+    """
+
+    display_name = String(
+        display_name=_('Display Name'),
+        help=_('The display name for this component.'),
+        scope=Scope.settings,
+        default=_('Exclusion')
+    )
+    has_custom_completion = True
+    completion_mode = XBlockCompletionMode.EXCLUDED
