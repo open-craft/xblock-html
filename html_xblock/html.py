@@ -269,5 +269,18 @@ class ExcludedHTML5XBlock(HTML5XBlock):
         scope=Scope.settings,
         default=_('Exclusion')
     )
+    editor = String(
+        help=_(
+            'Select Visual to enter content and have the editor automatically create the HTML. Select Raw to edit '
+            'HTML directly. If you change this setting, you must save the component and then re-open it for editing.'
+        ),
+        display_name=_('Editor'),
+        default='raw',
+        values=[
+            {'display_name': _('Visual'), 'value': 'visual'},
+            {'display_name': _('Raw'), 'value': 'raw'}
+        ],
+        scope=Scope.settings
+    )
     has_custom_completion = True
     completion_mode = XBlockCompletionMode.EXCLUDED
