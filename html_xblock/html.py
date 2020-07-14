@@ -59,7 +59,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
     @XBlock.supports('multi_device')
     def student_view(self, context=None):  # pylint: disable=unused-argument
         """
-        Return a fragment that contains the html for the student view
+        Return a fragment that contains the html for the student view.
         """
         frag = Fragment()
         frag.content = xblock_loader.render_template('static/html/lms.html', {'self': self})
@@ -71,7 +71,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
     def studio_view(self, context=None):  # pylint: disable=unused-argument
         """
-        Return a fragment that contains the html for the Studio view
+        Return a fragment that contains the html for the Studio view.
         """
         frag = Fragment()
 
@@ -231,9 +231,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
     def get_editable_fields(self):
         """
-
-        This method extracts the editable fields from this XBlock and returns
-        them after validating them.
+        This method extracts the editable fields from this XBlock and returns them after validating them.
 
         Part of this method's copied from StudioEditableXBlockMixin#submit_studio_edits
         with some modifications..
