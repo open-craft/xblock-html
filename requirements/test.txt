@@ -10,5 +10,5 @@ tox-battery==0.6.1
 mock==3.0.5
 
 # Github requirements
-git+https://github.com/edx/django-pyfs.git@1.0.3#egg=django-pyfs==1.0.3
+git+https://github.com/edx/django-pyfs.git@2.2#egg=django-pyfs==2.2
 git+https://github.com/edx/xblock-sdk.git#egg=xblock-sdk
