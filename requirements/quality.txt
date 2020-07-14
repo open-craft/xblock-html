@@ -1,9 +1,9 @@
 # Requirements for code quality checks
 
-isort==4.3.4
-astroid==1.5.2
-pycodestyle==2.4.0
-pydocstyle==2.1.1
-pylint==1.7.1
-caniusepython3==7.0.0
-edx_lint==0.5.5
+isort==4.3.21
+astroid==2.3.3
+pycodestyle==2.6.0
+pydocstyle==5.0.2
+pylint==2.4.4
+caniusepython3==7.2.0
+edx_lint==1.5.0
