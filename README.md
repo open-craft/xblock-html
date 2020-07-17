@@ -18,6 +18,8 @@ pip install https://github.com/open-craft/xblock-html
 ```
 You may specify the `-e` flag if you intend to develop on the repo.
 
+Note that as of version 0.2.0, Python 2.7 is no longer supported. The current minimum Python version is 3.5.
+
 ## Development
 If you're willing to develop on this repo, you need to be familiar with different technologies and the repos' 
 dependencies. However, to make things easier to setup and to manage, there're bunch of make commands that you can use
