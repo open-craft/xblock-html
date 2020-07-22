@@ -4,6 +4,6 @@ isort==4.3.21
 astroid==2.3.3
 pycodestyle==2.6.0
 pydocstyle==5.0.2
-pylint==2.4.4
+pylint==2.4.2
 caniusepython3==7.2.0
 edx-lint==1.4.1
