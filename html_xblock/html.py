@@ -62,7 +62,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         Return a fragment that contains the html for the student view.
         """
         frag = Fragment()
-        frag.content = xblock_loader.render_template('static/html/lms.html', {'self': self})
+        frag.content = xblock_loader.render_django_template('static/html/lms.html', {'self': self})
 
         frag.add_css(self.resource_string('public/plugins/codesample/css/prism.css'))
         frag.add_javascript(self.resource_string('public/plugins/codesample/js/prism.js'))
@@ -76,13 +76,13 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         frag = Fragment()
 
         settings_fields = self.get_editable_fields()
-        settings_page = loader.render_template('templates/studio_edit.html', {'fields': settings_fields})
+        settings_page = loader.render_django_template('templates/studio_edit.html', {'fields': settings_fields})
         context = {
             'self': self,
             'settings_page': settings_page,
         }
 
-        frag.content = xblock_loader.render_template('static/html/studio.html', context)
+        frag.content = xblock_loader.render_django_template('static/html/studio.html', context)
 
         self.add_stylesheets(frag)
         self.add_scripts(frag)
