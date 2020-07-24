@@ -4,16 +4,16 @@ A new HTML XBlock that is designed with security and embedding in mind.
 import bleach
 
 
-class SanitizedText(object):  # pylint: disable=too-few-public-methods
+class SanitizedText:  # pylint: disable=too-few-public-methods
     """
-    This class is responsible for maintaining unsafe string values saved in the database. It returns
-    a safe value of the passed text and an unsafe value if requested.
+    This class is responsible for maintaining unsafe string values saved in the database.
+    It returns a safe value of the passed text and an unsafe value if requested.
     """
 
     def __init__(self, value, strict=True):
         """
-        This initializer takes a raw value that may contain unsafe content and produce a cleaned version of it. It's
-        very helpful to maintain both versions of the content if we need to use it later as a Database field or so.
+        This initializer takes a raw value that may contain unsafe content and produce a cleaned version of it.
+        It's very helpful to maintain both versions of the content if we need to use it later as a Database field or so.
         :param value: The original string value that came from DB.
         :param strict: Whether to strictly process the given text or not.
         """
@@ -26,8 +26,10 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def get_cleaner(self):
         """
-        This method will help lowering the strictness level of `bleach.Cleaner` by redefining the safe
-        values we're currently using and considering safe in the platform.
+        This method will help lowering the strictness level of `bleach.Cleaner`.
+
+        It does so by redefining the safe values we're currently using and
+        considering safe in the platform.
         """
         cleaner = bleach.Cleaner(
             tags=self._get_allowed_tags(),
@@ -39,8 +41,9 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def _get_allowed_tags(self):
         """
-        This is an override to the original bleaching cleaner ALLOWED_TAGS, it deals with two bleaching modes,
-        the strict mode, and the trusted mode.
+        This is an override to the original bleaching cleaner ALLOWED_TAGS.
+
+        It deals with two bleaching modes: the strict mode, and the trusted mode.
 
         :return: Allowed tags depending on the bleaching mode
         """
@@ -73,8 +76,9 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def _get_allowed_attributes(self):
         """
-        This is an override to the original bleaching cleaner ALLOWED_ATTRIBUTES, it deals with two bleaching modes,
-        the strict mode, and the trusted mode.
+        This is an override to the original bleaching cleaner ALLOWED_ATTRIBUTES.
+
+        It deals with two bleaching modes, the strict mode, and the trusted mode.
 
         :return: Allowed attributes depending on the bleaching mode
         """
@@ -96,8 +100,9 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def _get_allowed_styles(self):
         """
-        This is an override to the original bleaching cleaner ALLOWED_STYLES, it deals with two bleaching modes,
-        the strict mode, and the trusted mode.
+        This is an override to the original bleaching cleaner ALLOWED_STYLES.
+
+        It deals with two bleaching modes, the strict mode, and the trusted mode.
 
         :return: Allowed styles depending on the bleaching mode
         """
@@ -110,7 +115,9 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def _determine_values(self, other):
         """
-        Return the values to be compared, if `other` is an instance of `str` then we will compare `other`'s value with
+        Return the values to be compared.
+
+        If `other` is an instance of `str` then we will compare `other`'s value with
         this instance's clean value. Else if `other` is an instance of this class we will compare the `other`'s
         adulterate value (The original value) with the instance adulterate value as well.
         :param other:
@@ -142,7 +149,7 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def __eq__(self, other):
         """
-        :param other:
+        :param other: The object to compare with this object.
         :return: If the other is an instance of str, then this will
                  be compared to the clean value, otherwise, it'll
                  compare both objects regarding the original value.
@@ -152,7 +159,7 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def __ne__(self, other):
         """
-        :param other:
+        :param other: The object to compare with this object.
         :return: If the other is an instance of str, then this will
                  be compared to the clean value, otherwise, it'll
                  compare both objects regarding the original value.
@@ -162,7 +169,7 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def __lt__(self, other):
         """
-        :param other:
+        :param other: The object to compare with this object.
         :return: If the other is an instance of str, then this will
                  be compared to the clean value, otherwise, it'll
                  compare both objects regarding the original value.
@@ -172,7 +179,7 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def __le__(self, other):
         """
-        :param other:
+        :param other: The object to compare with this object.
         :return: If the other is an instance of str, then this will
                  be compared to the clean value, otherwise, it'll
                  compare both objects regarding the original value.
@@ -182,7 +189,7 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def __gt__(self, other):
         """
-        :param other:
+        :param other: The object to compare with this object.
         :return: If the other is an instance of str, then this will
                  be compared to the clean value, otherwise, it'll
                  compare both objects regarding the original value.
@@ -192,7 +199,7 @@ class SanitizedText(object):  # pylint: disable=too-few-public-methods
 
     def __ge__(self, other):
         """
-        :param other:
+        :param other: The object to compare with this object.
         :return: If the other is an instance of str, then this will
                  be compared to the clean value, otherwise, it'll
                  compare both objects regarding the original value.

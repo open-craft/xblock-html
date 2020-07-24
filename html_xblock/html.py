@@ -59,10 +59,10 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
     @XBlock.supports('multi_device')
     def student_view(self, context=None):  # pylint: disable=unused-argument
         """
-        Return a fragment that contains the html for the student view
+        Return a fragment that contains the html for the student view.
         """
         frag = Fragment()
-        frag.content = xblock_loader.render_template('static/html/lms.html', {'self': self})
+        frag.content = xblock_loader.render_django_template('static/html/lms.html', {'self': self})
 
         frag.add_css(self.resource_string('public/plugins/codesample/css/prism.css'))
         frag.add_javascript(self.resource_string('public/plugins/codesample/js/prism.js'))
@@ -71,18 +71,18 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
     def studio_view(self, context=None):  # pylint: disable=unused-argument
         """
-        Return a fragment that contains the html for the Studio view
+        Return a fragment that contains the html for the Studio view.
         """
         frag = Fragment()
 
         settings_fields = self.get_editable_fields()
-        settings_page = loader.render_template('templates/studio_edit.html', {'fields': settings_fields})
+        settings_page = loader.render_django_template('templates/studio_edit.html', {'fields': settings_fields})
         context = {
             'self': self,
             'settings_page': settings_page,
         }
 
-        frag.content = xblock_loader.render_template('static/html/studio.html', context)
+        frag.content = xblock_loader.render_django_template('static/html/studio.html', context)
 
         self.add_stylesheets(frag)
         self.add_scripts(frag)
@@ -231,9 +231,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
     def get_editable_fields(self):
         """
-
-        This method extracts the editable fields from this XBlock and returns
-        them after validating them.
+        This method extracts the editable fields from this XBlock and returns them after validating them.
 
         Part of this method's copied from StudioEditableXBlockMixin#submit_studio_edits
         with some modifications..
