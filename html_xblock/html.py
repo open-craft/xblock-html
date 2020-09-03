@@ -2,7 +2,9 @@
 
 import logging
 
+import markdown2
 import pkg_resources
+from django.conf import settings as django_settings
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
@@ -15,6 +17,30 @@ from .utils import _
 
 log = logging.getLogger(__name__)  # pylint: disable=invalid-name
 xblock_loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
+
+MDOWN_SETTINGS_KEY = 'markdown'
+MDOWN_DEFAULT_EXTRAS = [
+    "code-friendly",
+    "fenced-code-blocks",
+    "footnotes",
+    "tables",
+    "use-file-vars"
+]
+MDOWN_DEFAULT_SETTINGS = {
+    "extras": MDOWN_DEFAULT_EXTRAS
+}
+
+
+def get_xblock_settings(settings_key, default_settings):
+    """Extracts xblock settings for a given key."""
+    try:
+        xblock_settings = django_settings.XBLOCK_SETTINGS
+    except AttributeError:
+        settings = default_settings
+    else:
+        settings = xblock_settings.get(
+            settings_key, default_settings)
+    return settings
 
 
 class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
@@ -66,6 +92,9 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
         frag.add_css(self.resource_string('public/plugins/codesample/css/prism.css'))
         frag.add_javascript(self.resource_string('public/plugins/codesample/js/prism.js'))
+
+        if self.editor == "markdown":
+            frag.add_css(self.resource_string('static/css/pygments.css'))
 
         return frag
 
@@ -143,7 +172,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         """
         frag.add_css(self.resource_string('static/css/html.css'))
 
-        if self.editor == 'raw':
+        if self.editor in ('raw', 'markdown'):
             frag.add_css(self.resource_string('public/plugins/codemirror/codemirror-4.8/lib/codemirror.css'))
 
     def add_scripts(self, frag):
@@ -156,10 +185,14 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         frag.add_javascript(self.resource_string('static/js/html.js'))
         frag.add_javascript(loader.load_unicode('public/studio_edit.js'))
 
+        code_mirror_dir = 'public/plugins/codemirror/codemirror-4.8/'
+
         if self.editor == 'raw':
-            code_mirror_dir = 'public/plugins/codemirror/codemirror-4.8/'
             frag.add_javascript(self.resource_string(code_mirror_dir + 'lib/codemirror.js'))
             frag.add_javascript(self.resource_string(code_mirror_dir + 'mode/xml/xml.js'))
+        if self.editor == 'markdown':
+            frag.add_javascript(self.resource_string(code_mirror_dir + 'lib/codemirror.js'))
+            frag.add_javascript(self.resource_string(code_mirror_dir + 'mode/markdown/markdown.js'))
 
     def get_editor_plugins(self):
         """
@@ -282,3 +315,31 @@ class ExcludedHTML5XBlock(HTML5XBlock):
     )
     has_custom_completion = True
     completion_mode = XBlockCompletionMode.EXCLUDED
+
+
+class MarkdownXBlock(HTML5XBlock):
+    """
+    Displays markdown content as HTML.
+    """
+
+    editor = "markdown"
+
+    display_name = String(
+        display_name=_('Display Name'),
+        help=_('The display name for this component.'),
+        scope=Scope.settings,
+        default=_('Markdown')
+    )
+    editable_fields = ('display_name',)
+
+    @property
+    def html(self):
+        """
+        A property that returns the markdown content data as html.
+        """
+        settings = get_xblock_settings(
+            MDOWN_SETTINGS_KEY,
+            MDOWN_DEFAULT_SETTINGS)
+        extras = settings.get("extras", MDOWN_DEFAULT_EXTRAS)
+
+        return markdown2.markdown(self.data, extras=extras)

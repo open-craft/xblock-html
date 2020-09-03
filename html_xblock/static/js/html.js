@@ -67,6 +67,14 @@ function configureTheEditor(data) {
         }
       }
     });
+  } else if (data.editor === "markdown") {
+    editor = CodeMirror.fromTextArea(document.querySelectorAll(contentSelector)[0], {
+      mode: "markdown",
+      lineNumbers: true,
+      matchBrackets: true,
+      lineWrapping: true,
+      theme: "default"
+    });
   } else {
     editor = CodeMirror.fromTextArea(document.querySelectorAll(contentSelector)[0], {
       mode: "text/html",

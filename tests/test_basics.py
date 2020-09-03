@@ -27,7 +27,7 @@ class TestHTMLXBlock(unittest.TestCase):
         block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
         self.assertEqual(block.allow_javascript, False)
         fragment = block.student_view()
-        self.assertIn('<div>Safe <b>html</b></div>', fragment.content)
+        self.assertIn('<div class="html_block">Safe <b>html</b></div>', fragment.content)
 
     def test_render_with_unsafe(self):
         """
@@ -39,7 +39,7 @@ class TestHTMLXBlock(unittest.TestCase):
         self.assertEqual(block.allow_javascript, False)
         fragment = block.student_view()
         self.assertIn(
-            '<div>Safe <b>html</b>&lt;script&gt;alert(\'javascript\');&lt;/script&gt;</div>',
+            '<div class="html_block">Safe <b>html</b>&lt;script&gt;alert(\'javascript\');&lt;/script&gt;</div>',
             fragment.content
         )
 
@@ -55,7 +55,8 @@ class TestHTMLXBlock(unittest.TestCase):
         block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
         self.assertEqual(block.allow_javascript, True)
         fragment = block.student_view()
-        self.assertIn('<div>Safe <b>html</b><script>alert(\'javascript\');</script></div>', fragment.content)
+        self.assertIn('<div class="html_block">Safe <b>html</b><script>alert(\'javascript\');</script></div>',
+                      fragment.content)
 
     def test_substitution_no_system(self):
         """
@@ -64,7 +65,7 @@ class TestHTMLXBlock(unittest.TestCase):
         field_data = DictFieldData({'data': 'Safe <b>%%USER_ID%% %%COURSE_ID%%</b>'})
         block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
         fragment = block.student_view()
-        self.assertIn('<div>Safe <b>%%USER_ID%% %%COURSE_ID%%</b></div>', fragment.content)
+        self.assertIn('<div class="html_block">Safe <b>%%USER_ID%% %%COURSE_ID%%</b></div>', fragment.content)
 
     def test_substitution_not_found(self):
         """
@@ -74,7 +75,7 @@ class TestHTMLXBlock(unittest.TestCase):
         block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
         block.system = Mock(anonymous_student_id=None)
         fragment = block.student_view()
-        self.assertIn('<div>Safe <b>%%USER_ID%% %%COURSE_ID%%</b></div>', fragment.content)
+        self.assertIn('<div class="html_block">Safe <b>%%USER_ID%% %%COURSE_ID%%</b></div>', fragment.content)
 
     def test_user_id_substitution(self):
         """
@@ -84,7 +85,7 @@ class TestHTMLXBlock(unittest.TestCase):
         block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
         block.system = Mock(anonymous_student_id='test_user')
         fragment = block.student_view()
-        self.assertIn('<div>Safe <b>test_user</b></div>', fragment.content)
+        self.assertIn('<div class="html_block">Safe <b>test_user</b></div>', fragment.content)
 
     def test_course_id_substitution(self):
         """
@@ -96,4 +97,4 @@ class TestHTMLXBlock(unittest.TestCase):
         course_locator_mock.html_id = Mock(return_value='test_course')
         block.system = Mock(course_id=course_locator_mock)
         fragment = block.student_view()
-        self.assertIn('<div>Safe <b>test_course</b></div>', fragment.content)
+        self.assertIn('<div class="html_block">Safe <b>test_course</b></div>', fragment.content)

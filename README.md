@@ -20,7 +20,42 @@ You may specify the `-e` flag if you intend to develop on the repo.
 
 Note that as of version 1.0.0, Python 2.7 is no longer supported. The current minimum Python version is 3.5.
 
-To enable this block, add `"html5"` and `"excluded_html5"` to the course's advanced module list. The options `Text` and `Exclusion` will appear in the advanced components.
+To enable this block, add `"html5"`, `"excluded_html5"` add `"markdown"` to the course's advanced module list. 
+The options `Text`, `Exclusion` and `Markdown` will appear in the advanced components.
+
+The `Markdown` block uses [markdown2](https://pypi.org/project/markdown2/) to translate the content into HTML, 
+by default the following extras are included:
+
+* "code-friendly"
+* "fenced-code-blocks"
+* "footnotes"
+* "tables"
+* "use-file-vars"
+
+It is possible to configure more [extras](https://github.com/trentm/python-markdown2/wiki/Extras), by adding to the extras list under `"markdown"` key in `XBLOCK_SETTINGS`
+at `/edx/etc/{studio|lms}.yml`
+
+Example:
+```
+"XBLOCK_SETTINGS": {
+    "markdown": {
+        "extras": [
+            "code-friendly",
+            "fenced-code-blocks",
+            "footnotes",
+            "header-ids",
+            "metadata",
+            "pyshell",
+            "smarty-pants",
+            "strike",
+            "target-blank-links",
+            "use-file-vars",
+            "wiki-tables",
+            "tag-friendly",
+        ]
+    }
+}
+```
 
 ## Development
 If you're willing to develop on this repo, you need to be familiar with different technologies and the repos' 

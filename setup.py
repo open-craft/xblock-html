@@ -32,11 +32,14 @@ setup(
     install_requires=[
         'XBlock',
         'bleach',
+        'markdown2>=2.3.9',
+        'Pygments>=2.0.1'
     ],
     entry_points={
         'xblock.v1': [
             'html5 = html_xblock:HTML5XBlock',
             'excluded_html5 = html_xblock:ExcludedHTML5XBlock',
+            'markdown = html_xblock:MarkdownXBlock'
         ]
     },
     package_data=package_data("html_xblock", ["static", "public"]),
