@@ -18,7 +18,7 @@ pip install https://github.com/open-craft/xblock-html
 ```
 You may specify the `-e` flag if you intend to develop on the repo.
 
-Note that as of version 1.0.0, Python 2.7 is no longer supported. The current minimum Python version is 3.5.
+Note that as of version 1.0.0, Python 2.7 is no longer supported. The current minimum Python version is 3.8.
 
 To enable this block, add `"html5"` and `"excluded_html5"` to the course's advanced module list. The options `Text` and `Exclusion` will appear in the advanced components.
 
