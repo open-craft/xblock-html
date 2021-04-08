@@ -1,7 +1,7 @@
 defaults: &DEFAULT
   working_directory: /home/circleci/xblock-html
   docker:
-    - image: circleci/python:3.5
+    - image: circleci/python:3.8
 
 
 version: 2
