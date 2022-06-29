@@ -34,7 +34,7 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
         cleaner = bleach.Cleaner(
             tags=self._get_allowed_tags(),
             attributes=self._get_allowed_attributes(),
-            styles=self._get_allowed_styles()
+            # styles=self._get_allowed_styles()
         )
 
         return cleaner

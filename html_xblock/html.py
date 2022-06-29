@@ -90,7 +90,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         js_data = {
             'editor': self.editor,
             'skin_url': self.runtime.local_resource_url(self, 'public/skin'),
-            'external_plugins': self.get_editor_plugins()
+            # 'external_plugins': self.get_editor_plugins()
         }
         frag.initialize_js('HTML5XBlock', js_data)
 
@@ -151,8 +151,10 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         A helper method to add all necessary scripts to the fragment.
         :param frag: The fragment that will hold the scripts.
         """
-        frag.add_javascript(self.resource_string('static/js/tinymce/tinymce.min.js'))
-        frag.add_javascript(self.resource_string('static/js/tinymce/themes/modern/theme.min.js'))
+        frag.add_javascript_url('/static/studio/js/vendor/tinymce/js/tinymce/tinymce.full.min.js')
+        frag.add_javascript_url('/static/studio/js/vendor/tinymce/js/tinymce/themes/silver/theme.min.js')
+        # frag.add_javascript(self.resource_string('static/js/tinymce/tinymce.min.js'))
+        # frag.add_javascript(self.resource_string('static/js/tinymce/themes/modern/theme.min.js'))
         frag.add_javascript(self.resource_string('static/js/html.js'))
         frag.add_javascript(loader.load_unicode('public/studio_edit.js'))
 

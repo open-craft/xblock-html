@@ -33,7 +33,7 @@ function configureTheEditor(data) {
     tinymce.remove(contentSelector);
     editor = tinymce.init({
       skin_url: data.skin_url,
-      theme: "modern",
+      theme: "silver",
       schema: "html5",
       convert_urls: false,
       directionality: directionality,
