@@ -49,7 +49,7 @@ function configureTheEditor(data) {
       font_formats: FONTS,
       toolbar: "formatselect | fontselect | bold italic underline forecolor codesample | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | link unlink image | table tabledelete | code",
       table_class_list: [
-        { title: 'Custom Theme (.themed-table)', value: 'themed-table' }
+        { title: '.themed-table', value: 'themed-table' }
       ],
       external_plugins: data.external_plugins,
       formats: {
