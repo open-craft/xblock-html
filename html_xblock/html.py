@@ -3,6 +3,9 @@
 import logging
 
 import pkg_resources
+
+from django.conf import settings
+
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
@@ -89,8 +92,10 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
         js_data = {
             'editor': self.editor,
-            'skin_url': self.runtime.local_resource_url(self, 'public/skin'),
-            # 'external_plugins': self.get_editor_plugins()
+            'script_url': settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/tinymce.full.min.js', 
+            'skin_url': settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/skins/ui/studio-tmce5', 
+            'codemirror_path': settings.STATIC_URL + 'js/vendor/',
+            'external_plugins': self.get_editor_plugins()
         }
         frag.initialize_js('HTML5XBlock', js_data)
 
@@ -151,10 +156,8 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         A helper method to add all necessary scripts to the fragment.
         :param frag: The fragment that will hold the scripts.
         """
-        frag.add_javascript_url('/static/studio/js/vendor/tinymce/js/tinymce/tinymce.full.min.js')
-        frag.add_javascript_url('/static/studio/js/vendor/tinymce/js/tinymce/themes/silver/theme.min.js')
-        # frag.add_javascript(self.resource_string('static/js/tinymce/tinymce.min.js'))
-        # frag.add_javascript(self.resource_string('static/js/tinymce/themes/modern/theme.min.js'))
+        frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/tinymce.full.min.js')
+        frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/themes/silver/theme.min.js')
         frag.add_javascript(self.resource_string('static/js/html.js'))
         frag.add_javascript(loader.load_unicode('public/studio_edit.js'))
 
@@ -168,16 +171,13 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         This method will generate a list of external plugins urls to be used in TinyMCE editor.
         These plugins should live in `public` directory for us to generate URLs for.
 
-        const PLUGINS_DIR = "/resource/html5/public/plugins/";
-        const EXTERNAL_PLUGINS = PLUGINS.map(function(p) { return PLUGINS_DIR + p + "/plugin.min.js" });
-
         :return: A list of URLs
         """
-        plugin_path = 'public/plugins/{plugin}/plugin.min.js'
-        plugins = ['codesample', 'image', 'link', 'lists', 'textcolor', 'codemirror']
+        plugin_path = 'plugins/{plugin}/plugin.min.js'
+        plugins = ['codesample', 'image', 'link', 'lists', 'codemirror', 'table']
 
         return {
-            plugin: self.runtime.local_resource_url(self, plugin_path.format(plugin=plugin)) for plugin in plugins
+            plugin: (settings.STATIC_URL + "js/vendor/tinymce/js/tinymce/" + plugin_path.format(plugin=plugin)) for plugin in plugins
         }
 
     def substitute_keywords(self):

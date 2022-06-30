@@ -2,6 +2,7 @@
 A new HTML XBlock that is designed with security and embedding in mind.
 """
 import bleach
+from bleach.css_sanitizer import CSSSanitizer
 
 
 class SanitizedText:  # pylint: disable=too-few-public-methods
@@ -34,7 +35,9 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
         cleaner = bleach.Cleaner(
             tags=self._get_allowed_tags(),
             attributes=self._get_allowed_attributes(),
-            # styles=self._get_allowed_styles()
+            css_sanitizer=CSSSanitizer(
+                allowed_css_properties=self._get_allowed_styles()
+            )
         )
 
         return cleaner
@@ -66,7 +69,12 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
             'ol',
             'ul',
             'p',
-            'pre'
+            'pre',
+            'table',
+            'tbody',
+            'th',
+            'tr',
+            'td'
         ]
 
         if not self.strict:
@@ -89,6 +97,7 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
             'pre': ['class'],
             'span': ['style'],
             'ul': [],
+            'table': ['class'],
         }
 
         if not self.strict:
