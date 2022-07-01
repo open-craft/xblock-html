@@ -20,6 +20,7 @@ log = logging.getLogger(__name__)  # pylint: disable=invalid-name
 xblock_loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
 
 
+@XBlock.wants('settings')
 class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
     """
     This XBlock will provide an HTML WYSIWYG interface in Studio to be rendered in LMS.
@@ -52,6 +53,17 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         scope=Scope.settings
     )
     editable_fields = ('display_name', 'editor', 'allow_javascript')
+    block_settings_key = "html5"
+
+    def get_settings(self):
+        """
+        Get the XBlock settings bucket via the SettingsService.
+        """
+        settings_service = self.runtime.service(self, 'settings')
+        if settings_service:
+            return settings_service.get_settings_bucket(self)
+
+        return {}
 
     @staticmethod
     def resource_string(path):
@@ -95,7 +107,8 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
             'script_url': settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/tinymce.full.min.js', 
             'skin_url': settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/skins/ui/studio-tmce5', 
             'codemirror_path': settings.STATIC_URL + 'js/vendor/',
-            'external_plugins': self.get_editor_plugins()
+            'external_plugins': self.get_editor_plugins(),
+            'table_custom_classes': self.get_settings().get("table_custom_classes", [])
         }
         frag.initialize_js('HTML5XBlock', js_data)
 

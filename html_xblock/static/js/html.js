@@ -48,9 +48,7 @@ function configureTheEditor(data) {
       invalid_elements: "",
       font_formats: FONTS,
       toolbar: "formatselect | fontselect | bold italic underline forecolor codesample | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | link unlink image | table tabledelete | code",
-      table_class_list: [
-        { title: '.themed-table', value: 'themed-table' }
-      ],
+      table_class_list: data.table_custom_classes.map(c => ({ title: c, value: c })),
       external_plugins: data.external_plugins,
       formats: {
         code: {

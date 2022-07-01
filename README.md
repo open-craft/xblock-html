@@ -22,6 +22,20 @@ Note that as of version 1.0.0, Python 2.7 is no longer supported. The current mi
 
 To enable this block, add `"html5"` and `"excluded_html5"` to the course's advanced module list. The options `Text` and `Exclusion` will appear in the advanced components.
 
+## Configuration
+
+The `table`s added to the content in the WYSIWYG editor can be styled according the theming requirements of the deployment by adding custom CSS classes to them.
+Add the following to your XBLOCK_SETTINGS part of the CMS/Studio confguration:
+
+```
+XBLOCK_SETTINGS = {
+    "html5": {
+        "table_custom_classes": ["your-list", "of-css", "classes"]
+    }
+}
+```
+These classes will be available in the "General" tab of "Table Properties" dialog, under "Classes".
+
 ## Development
 If you're willing to develop on this repo, you need to be familiar with different technologies and the repos' 
 dependencies. However, to make things easier to setup and to manage, there're bunch of make commands that you can use
