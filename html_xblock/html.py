@@ -162,7 +162,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         frag.add_css(self.resource_string('static/css/html.css'))
 
         if self.editor == 'raw':
-            frag.add_css(self.resource_string('public/plugins/codemirror/codemirror-4.8/lib/codemirror.css'))
+            frag.add_css_url(settings.STATIC_URL + 'js/vendor/CodeMirror/codemirror.css')
 
     def add_scripts(self, frag):
         """
@@ -175,9 +175,8 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         frag.add_javascript(loader.load_unicode('public/studio_edit.js'))
 
         if self.editor == 'raw':
-            code_mirror_dir = 'public/plugins/codemirror/codemirror-4.8/'
-            frag.add_javascript(self.resource_string(code_mirror_dir + 'lib/codemirror.js'))
-            frag.add_javascript(self.resource_string(code_mirror_dir + 'mode/xml/xml.js'))
+            frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/CodeMirror/codemirror.js')
+            frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/CodeMirror/addons/xml.js')
 
     def get_editor_plugins(self):
         """
