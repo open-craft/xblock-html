@@ -3,9 +3,7 @@
 import logging
 
 import pkg_resources
-
 from django.conf import settings
-
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
@@ -32,7 +30,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         scope=Scope.settings,
         default=_('Text')
     )
-    data = String(help=_('Html contents to display for this module'), default=u'', scope=Scope.content)
+    data = String(help=_('Html contents to display for this module'), default='', scope=Scope.content)
     allow_javascript = Boolean(
         display_name=_('Allow JavaScript execution'),
         help=_('Whether JavaScript should be allowed or not in this module'),
@@ -104,8 +102,8 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
         js_data = {
             'editor': self.editor,
-            'script_url': settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/tinymce.full.min.js', 
-            'skin_url': settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/skins/ui/studio-tmce5', 
+            'script_url': settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/tinymce.full.min.js',
+            'skin_url': settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/skins/ui/studio-tmce5',
             'codemirror_path': settings.STATIC_URL + 'js/vendor/',
             'external_plugins': self.get_editor_plugins(),
             'table_custom_classes': self.get_settings().get("table_custom_classes", [])
@@ -178,7 +176,8 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
             frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/CodeMirror/codemirror.js')
             frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/CodeMirror/addons/xml.js')
 
-    def get_editor_plugins(self):
+    @staticmethod
+    def get_editor_plugins():
         """
         This method will generate a list of external plugins urls to be used in TinyMCE editor.
         These plugins should live in `public` directory for us to generate URLs for.
@@ -189,7 +188,10 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         plugins = ['codesample', 'image', 'link', 'lists', 'codemirror', 'table']
 
         return {
-            plugin: (settings.STATIC_URL + "js/vendor/tinymce/js/tinymce/" + plugin_path.format(plugin=plugin)) for plugin in plugins
+            plugin: (
+                settings.STATIC_URL + "js/vendor/tinymce/js/tinymce/" +
+                plugin_path.format(plugin=plugin)
+            ) for plugin in plugins
         }
 
     def substitute_keywords(self):
