@@ -3,6 +3,7 @@
 import logging
 
 import pkg_resources
+from django.conf import settings
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
@@ -17,6 +18,7 @@ log = logging.getLogger(__name__)  # pylint: disable=invalid-name
 xblock_loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
 
 
+@XBlock.wants('settings')
 class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
     """
     This XBlock will provide an HTML WYSIWYG interface in Studio to be rendered in LMS.
@@ -28,7 +30,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         scope=Scope.settings,
         default=_('Text')
     )
-    data = String(help=_('Html contents to display for this module'), default=u'', scope=Scope.content)
+    data = String(help=_('Html contents to display for this module'), default='', scope=Scope.content)
     allow_javascript = Boolean(
         display_name=_('Allow JavaScript execution'),
         help=_('Whether JavaScript should be allowed or not in this module'),
@@ -49,6 +51,17 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         scope=Scope.settings
     )
     editable_fields = ('display_name', 'editor', 'allow_javascript')
+    block_settings_key = "html5"
+
+    def get_settings(self):
+        """
+        Get the XBlock settings bucket via the SettingsService.
+        """
+        settings_service = self.runtime.service(self, 'settings')
+        if settings_service:
+            return settings_service.get_settings_bucket(self)
+
+        return {}
 
     @staticmethod
     def resource_string(path):
@@ -89,8 +102,11 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
         js_data = {
             'editor': self.editor,
-            'skin_url': self.runtime.local_resource_url(self, 'public/skin'),
-            'external_plugins': self.get_editor_plugins()
+            'script_url': settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/tinymce.full.min.js',
+            'skin_url': settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/skins/ui/studio-tmce5',
+            'codemirror_path': settings.STATIC_URL + 'js/vendor/',
+            'external_plugins': self.get_editor_plugins(),
+            'table_custom_classes': self.get_settings().get("table_custom_classes", [])
         }
         frag.initialize_js('HTML5XBlock', js_data)
 
@@ -144,38 +160,38 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         frag.add_css(self.resource_string('static/css/html.css'))
 
         if self.editor == 'raw':
-            frag.add_css(self.resource_string('public/plugins/codemirror/codemirror-4.8/lib/codemirror.css'))
+            frag.add_css_url(settings.STATIC_URL + 'js/vendor/CodeMirror/codemirror.css')
 
     def add_scripts(self, frag):
         """
         A helper method to add all necessary scripts to the fragment.
         :param frag: The fragment that will hold the scripts.
         """
-        frag.add_javascript(self.resource_string('static/js/tinymce/tinymce.min.js'))
-        frag.add_javascript(self.resource_string('static/js/tinymce/themes/modern/theme.min.js'))
+        frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/tinymce.full.min.js')
+        frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/themes/silver/theme.min.js')
         frag.add_javascript(self.resource_string('static/js/html.js'))
         frag.add_javascript(loader.load_unicode('public/studio_edit.js'))
 
         if self.editor == 'raw':
-            code_mirror_dir = 'public/plugins/codemirror/codemirror-4.8/'
-            frag.add_javascript(self.resource_string(code_mirror_dir + 'lib/codemirror.js'))
-            frag.add_javascript(self.resource_string(code_mirror_dir + 'mode/xml/xml.js'))
+            frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/CodeMirror/codemirror.js')
+            frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/CodeMirror/addons/xml.js')
 
-    def get_editor_plugins(self):
+    @staticmethod
+    def get_editor_plugins():
         """
         This method will generate a list of external plugins urls to be used in TinyMCE editor.
         These plugins should live in `public` directory for us to generate URLs for.
 
-        const PLUGINS_DIR = "/resource/html5/public/plugins/";
-        const EXTERNAL_PLUGINS = PLUGINS.map(function(p) { return PLUGINS_DIR + p + "/plugin.min.js" });
-
         :return: A list of URLs
         """
-        plugin_path = 'public/plugins/{plugin}/plugin.min.js'
-        plugins = ['codesample', 'image', 'link', 'lists', 'textcolor', 'codemirror']
+        plugin_path = 'plugins/{plugin}/plugin.min.js'
+        plugins = ['codesample', 'image', 'link', 'lists', 'codemirror', 'table']
 
         return {
-            plugin: self.runtime.local_resource_url(self, plugin_path.format(plugin=plugin)) for plugin in plugins
+            plugin: (
+                settings.STATIC_URL + "js/vendor/tinymce/js/tinymce/" +
+                plugin_path.format(plugin=plugin)
+            ) for plugin in plugins
         }
 
     def substitute_keywords(self):

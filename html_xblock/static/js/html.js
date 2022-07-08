@@ -32,8 +32,10 @@ function configureTheEditor(data) {
   if (data.editor === "visual") {
     tinymce.remove(contentSelector);
     editor = tinymce.init({
+      script_url: data.script_url,
       skin_url: data.skin_url,
-      theme: "modern",
+      theme: "silver",
+      skin: "studio-tmce5",
       schema: "html5",
       convert_urls: false,
       directionality: directionality,
@@ -45,7 +47,8 @@ function configureTheEditor(data) {
       valid_children: "+body[style]",
       invalid_elements: "",
       font_formats: FONTS,
-      toolbar: "formatselect | fontselect | bold italic underline forecolor codesample | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | link unlink image | code",
+      toolbar: "formatselect | fontselect | bold italic underline forecolor codesample | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | link unlink image | table tabledelete | code",
+      table_class_list: data.table_custom_classes.map(c => ({ title: c, value: c })),
       external_plugins: data.external_plugins,
       formats: {
         code: {
@@ -59,6 +62,9 @@ function configureTheEditor(data) {
       height: '315px',
       browser_spellcheck: true,
       codemirror: {
+        path: data.codemirror_path,
+        jsFiles: ["codemirror-compressed.js"],
+        cssFiles: ["CodeMirror/codemirror.css"],
         width: 770,
         height: 454,
         saveCursorPosition: false, // Caret Markers were introducing invalid chars (https://github.com/christiaan/tinymce-codemirror/issues/26)
@@ -150,7 +156,7 @@ function extractXBlockFields() {
     var datepickerAvailable = (typeof $.fn.datepicker !== 'undefined'); // Studio includes datepicker jQuery plugin
     if (type == 'datepicker' && datepickerAvailable) {
       $field.datepicker('destroy');
-      $field.datepicker({dateFormat: "m/d/yy"});
+      $field.datepicker({ dateFormat: "m/d/yy" });
     }
   });
 
@@ -212,7 +218,7 @@ function HTML5XBlock(runtime, element, data) {
     const fields_data = getSettingsValues(fields);
     var errorMessage = "This may be happening because of an error with our server or your internet connection. Try refreshing the page or making sure you are online.";
 
-    runtime.notify('save', {state: 'start', message: "Saving"});
+    runtime.notify('save', { state: 'start', message: "Saving" });
     $.ajax({
       type: "POST",
       url: SettingsHandlerUrl,
@@ -223,14 +229,14 @@ function HTML5XBlock(runtime, element, data) {
         $.ajax({
           type: "POST",
           url: ContentHandlerUrl,
-          data: JSON.stringify({"content": content}),
+          data: JSON.stringify({ "content": content }),
           dataType: "json",
           global: false,  // Disable Studio's error handling that conflicts with studio's notify('save') and notify('cancel') :-/
           success: function (response) {
-            runtime.notify('save', {state: 'end'});
+            runtime.notify('save', { state: 'end' });
           }
         }).fail(function (jqXHR) {
-          runtime.notify('error', {title: "Unable to update content", message: errorMessage});
+          runtime.notify('error', { title: "Unable to update content", message: errorMessage });
         })
       }
     }).fail(function (jqXHR) {
@@ -247,7 +253,7 @@ function HTML5XBlock(runtime, element, data) {
           errorMessage = jqXHR.responseText.substr(0, 300);
         }
       }
-      runtime.notify('error', {title: "Unable to update settings", message: errorMessage});
+      runtime.notify('error', { title: "Unable to update settings", message: errorMessage });
     })
   }
 
