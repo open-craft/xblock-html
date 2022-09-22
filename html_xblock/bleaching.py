@@ -91,8 +91,11 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
             'ul',
             'p',
             'pre',
+            'caption',
             'table',
+            'thead',
             'tbody',
+            'tfoot',
             'th',
             'tr',
             'td'
@@ -118,7 +121,9 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
             'pre': ['class'],
             'span': ['style'],
             'ul': [],
-            'table': ['class'],
+            'table': ['class', 'style', 'border', 'cellspacing', 'cellpadding'],
+            'tr': ['style'],
+            'td': ['style', 'scope'],
         }
 
         if not self.strict:
@@ -136,7 +141,11 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
 
         :return: Allowed styles depending on the bleaching mode
         """
-        styles = ['font-family', 'text-align', 'color', 'text-decoration', 'padding-left', 'padding-right']
+        styles = [
+            'background-color', 'border', 'border-collapse', 'border-color', 'border-style', 'color', 'font-family',
+            'height', 'margin-left', 'margin-right', 'padding-left', 'padding-right', 'text-align', 'text-decoration',
+            'vertical-align', 'width',
+        ]
 
         if not self.strict:
             styles += ['list-style-type', 'font-size', 'border-width', 'margin']
