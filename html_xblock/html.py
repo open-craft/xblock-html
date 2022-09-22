@@ -80,6 +80,9 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         frag.add_css(self.resource_string('public/plugins/codesample/css/prism.css'))
         frag.add_javascript(self.resource_string('public/plugins/codesample/js/prism.js'))
 
+        if getattr(self.runtime, 'is_author_mode', False):
+            frag.add_css(self.resource_string('static/css/html_preview.css'))
+
         return frag
 
     def studio_view(self, context=None):  # pylint: disable=unused-argument

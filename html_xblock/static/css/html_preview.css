@@ -1,0 +1,77 @@
+/* This css file contains styles that should be used for the XBlock preview in
+ * studio.
+ *
+ * It contains the fix for rendering tables in studio preview, which is
+ * caused by global studio styles. These global styles set `border: 0;` for
+ * tables and their elements, which removes the borders from these elements. */
+
+/* fall back to default browser styles for all rows; the inline styles (like
+ * border style and color) would overwrite it */
+.studio-xblock-wrapper [data-block-type="html5"] table > * > tr {
+  border: unset;
+}
+
+/* fall back to default browser styles, if border attribute is not set; the
+ * inline styles (like border style and color) would overwrite it */
+.studio-xblock-wrapper [data-block-type="html5"] table:not([border]) {
+  border: unset;
+}
+
+/* default styles for any table that had border attribute set; the inline
+ * styles (like border style and color) would overwrite it */
+.studio-xblock-wrapper [data-block-type="html5"] table[border] {
+  border: 1px solid black;
+}
+
+/* change the border width, depending on the explicit value of the border
+ * attribute */
+.studio-xblock-wrapper [data-block-type="html5"] table[border="1"] {
+  border-width: 1px;
+}
+
+.studio-xblock-wrapper [data-block-type="html5"] table[border="2"] {
+  border-width: 2px;
+}
+
+.studio-xblock-wrapper [data-block-type="html5"] table[border="3"] {
+  border-width: 3px;
+}
+
+.studio-xblock-wrapper [data-block-type="html5"] table[border="4"] {
+  border-width: 4px;
+}
+
+.studio-xblock-wrapper [data-block-type="html5"] table[border="5"] {
+  border-width: 5px;
+}
+
+.studio-xblock-wrapper [data-block-type="html5"] table[border="6"] {
+  border-width: 6px;
+}
+
+.studio-xblock-wrapper [data-block-type="html5"] table[border="7"] {
+  border-width: 7px;
+}
+
+.studio-xblock-wrapper [data-block-type="html5"] table[border="8"] {
+  border-width: 8px;
+}
+
+.studio-xblock-wrapper [data-block-type="html5"] table[border="9"] {
+  border-width: 9px;
+}
+
+.studio-xblock-wrapper [data-block-type="html5"] table[border="10"] {
+  border-width: 10px;
+}
+/* etc until the value we think is reasonable */
+
+.studio-xblock-wrapper [data-block-type="html5"] table[border] > * > tr > td,
+.studio-xblock-wrapper [data-block-type="html5"] table[border] > * > tr > th,
+.studio-xblock-wrapper [data-block-type="html5"] table[border] > * > td,
+.studio-xblock-wrapper [data-block-type="html5"] table[border] > * > th,
+.studio-xblock-wrapper [data-block-type="html5"] table[border] > td,
+.studio-xblock-wrapper [data-block-type="html5"] table[border] > th {
+  border-width: thin;
+  border-style: inset;
+}
