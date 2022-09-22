@@ -97,8 +97,8 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
         frag.content = xblock_loader.render_django_template('static/html/studio.html', context)
 
-        self.add_stylesheets(frag)
-        self.add_scripts(frag)
+        self.add_edit_stylesheets(frag)
+        self.add_edit_scripts(frag)
 
         js_data = {
             'editor': self.editor,
@@ -152,24 +152,24 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
              """),
         ]
 
-    def add_stylesheets(self, frag):
+    def add_edit_stylesheets(self, frag):
         """
-        A helper method to add all necessary styles to the fragment.
+        A helper method to add all styles to the fragment necesesary for edit.
         :param frag: The fragment that will hold the scripts.
         """
-        frag.add_css(self.resource_string('static/css/html.css'))
+        frag.add_css(self.resource_string('static/css/html_edit.css'))
 
         if self.editor == 'raw':
             frag.add_css_url(settings.STATIC_URL + 'js/vendor/CodeMirror/codemirror.css')
 
-    def add_scripts(self, frag):
+    def add_edit_scripts(self, frag):
         """
-        A helper method to add all necessary scripts to the fragment.
+        A helper method to add all scripts to the fragment necessary for edit.
         :param frag: The fragment that will hold the scripts.
         """
         frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/tinymce.full.min.js')
         frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/themes/silver/theme.min.js')
-        frag.add_javascript(self.resource_string('static/js/html.js'))
+        frag.add_javascript(self.resource_string('static/js/html_edit.js'))
         frag.add_javascript(loader.load_unicode('public/studio_edit.js'))
 
         if self.editor == 'raw':
