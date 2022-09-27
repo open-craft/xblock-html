@@ -23,7 +23,7 @@ def package_data(pkg, roots):
 
 setup(
     name='html-xblock',
-    version='1.2.0',
+    version='1.2.1',
     description='HTML XBlock will help creating and using a secure and easy-to-use HTML blocks',
     license='AGPL v3',
     packages=[
