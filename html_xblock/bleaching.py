@@ -42,6 +42,7 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
         considering safe in the platform.
         """
         if CSSSanitizer:
+            # pylint: disable=unexpected-keyword-arg
             cleaner = bleach.Cleaner(
                 tags=self._get_allowed_tags(),
                 attributes=self._get_allowed_attributes(),
@@ -54,7 +55,6 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
             # used in Maple and Nutmeg release of edx-platform. This can be removed
             # for Olive release which uses bleach 5.0.0
 
-            # pylint: disable-next=unexpected-keyword-arg
             cleaner = bleach.Cleaner(
                 tags=self._get_allowed_tags(),
                 attributes=self._get_allowed_attributes(),
