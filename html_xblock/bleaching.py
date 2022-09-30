@@ -9,8 +9,8 @@ except (ImportError, ModuleNotFoundError):
     # NOTE:
     # The bleach library changes the way CSS Styles are cleaned in
     # version 5.0.0. Since the edx-platform uses version 4.1.0 in
-    # Maple and Nutmeg, this import is handled within a try block.
-    # This try block CAN BE REMOVED after Olive
+    # Maple, this import is handled within a try block.
+    # This try block CAN BE REMOVED for Nutmeg
     CSSSanitizer = None
 
 
@@ -42,6 +42,7 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
         considering safe in the platform.
         """
         if CSSSanitizer:
+            # pylint: disable-next=unexpected-keyword-arg
             cleaner = bleach.Cleaner(
                 tags=self._get_allowed_tags(),
                 attributes=self._get_allowed_attributes(),
@@ -51,9 +52,8 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
             )
         else:
             # NOTE: This is maintaining backward compatibility with bleach 4.1.0
-            # used in Maple and Nutmeg release of edx-platform. This can be removed
-            # for Olive release which uses bleach 5.0.0
-
+            # used in Maple release of edx-platform. This can be removed
+            # for Nutmeg release which uses bleach 5.0.0
             # pylint: disable-next=unexpected-keyword-arg
             cleaner = bleach.Cleaner(
                 tags=self._get_allowed_tags(),
@@ -91,8 +91,11 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
             'ul',
             'p',
             'pre',
+            'caption',
             'table',
+            'thead',
             'tbody',
+            'tfoot',
             'th',
             'tr',
             'td'
@@ -118,7 +121,9 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
             'pre': ['class'],
             'span': ['style'],
             'ul': [],
-            'table': ['class'],
+            'table': ['class', 'style', 'border', 'cellspacing', 'cellpadding'],
+            'tr': ['style'],
+            'td': ['style', 'scope'],
         }
 
         if not self.strict:
@@ -136,7 +141,11 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
 
         :return: Allowed styles depending on the bleaching mode
         """
-        styles = ['font-family', 'text-align', 'color', 'text-decoration', 'padding-left', 'padding-right']
+        styles = [
+            'background-color', 'border', 'border-collapse', 'border-color', 'border-style', 'color', 'font-family',
+            'height', 'margin-left', 'margin-right', 'padding-left', 'padding-right', 'text-align', 'text-decoration',
+            'vertical-align', 'width',
+        ]
 
         if not self.strict:
             styles += ['list-style-type', 'font-size', 'border-width', 'margin']

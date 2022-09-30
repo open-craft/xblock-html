@@ -33,7 +33,6 @@ test_requirements: base_requirements ## Install requirements needed by test envi
 	pip install -q -r requirements/test.txt --exists-action w
 
 requirements: base_requirements test_requirements ## Installs all requirements needed by developmenent and test environments
-	pip install -e .
 	@echo "Finished installing requirements."
 
 quality:  ## Run quality tests and checks
@@ -48,7 +47,7 @@ unit-coverage: clean ## Run coverage and unit tests
 	coverage run ./manage.py test
 	coverage html
 	coverage xml
-	diff-cover coverage.xml --html-report diff-cover.html
+	diff-cover coverage.xml --compare-branch origin/master --html-report diff-cover.html
 
 unit: clean ## Run unit tests
 	mkdir var/

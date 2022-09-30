@@ -11,6 +11,32 @@ from xblock.test.tools import TestRuntime
 
 import html_xblock
 
+TABLE_HTML = """
+<table border="1" cellpadding="1" cellspacing="1" style="background-color: #c2e0f4; border-collapse: collapse; border-color: blue; border-style: solid; height: 50px; margin-left: auto; margin-right: auto; width: 100%;"><caption></caption>
+<thead>
+<tr style="height: 10px; background-color: #2dc26b; border-color: green; border-style: solid; text-align: center;">
+<td scope="col" style="width: 33.1779%;"></td>
+<td scope="col" style="width: 33.1779%;"></td>
+<td scope="col" style="width: 33.1779%;"></td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 33.1779%;"></td>
+<td style="width: 33.1779%; height: 10px; background-color: #3598db; text-align: center; vertical-align: middle; border: 2px solid #236fa1;"></td>
+<td style="width: 33.1779%;"></td>
+</tr>
+</tbody>
+<tfoot>
+<tr style="height: 10px; background-color: #b96ad9; border-color: purple; border-style: solid; text-align: center;">
+<td style="width: 33.1779%;"></td>
+<td style="width: 33.1779%;"></td>
+<td style="width: 33.1779%;"></td>
+</tr>
+</tfoot>
+</table>
+"""  # noqa: E501
+
 
 class TestHTMLXBlock(unittest.TestCase):
     """
@@ -42,6 +68,16 @@ class TestHTMLXBlock(unittest.TestCase):
             '<div>Safe <b>html</b>&lt;script&gt;alert(\'javascript\');&lt;/script&gt;</div>',
             fragment.content
         )
+
+    def test_render_table_without_allow_js(self):
+        """
+        Test that tables are rendered correctly without allowing js.
+        """
+        field_data = DictFieldData({'data': TABLE_HTML})
+        block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
+        self.assertEqual(block.allow_javascript, False)
+        fragment = block.student_view()
+        self.assertIn(TABLE_HTML, fragment.content)
 
     def test_render_allow_js(self):
         """

@@ -1,7 +1,7 @@
 defaults: &DEFAULT
   working_directory: /home/circleci/xblock-html
   docker:
-    - image: circleci/python:3.8
+    - image: cimg/python:3.8
 
 
 version: 2
@@ -11,7 +11,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: deps1-{{ .Branch }}--{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/quality.txt" }}
+          key: deps2-{{ .Branch }}--{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/test.txt" }}-{{ checksum "requirements/quality.txt" }}
       - run:
           name: Installing requirements
           command: |
@@ -41,6 +41,22 @@ jobs:
           name: Running tests
           command: make unit-coverage
 
+  test_nutmeg:
+    <<: *DEFAULT
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Activate virtualenv
+          command: echo 'source /tmp/workspace/env/bin/activate' >> $BASH_ENV
+      - run:
+          name: Install bleach 5
+          command: pip install bleach[css]==5.0.0
+      - run:
+          name: Running tests
+          command: make unit-coverage
+
   quality:
     <<: *DEFAULT
     steps:
@@ -50,6 +66,22 @@ jobs:
       - run:
           name: Activate virtualenv
           command: echo 'source /tmp/workspace/env/bin/activate' >> $BASH_ENV
+      - run:
+          name: Test Quality
+          command: make quality
+
+  quality_nutmeg:
+    <<: *DEFAULT
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Activate virtualenv
+          command: echo 'source /tmp/workspace/env/bin/activate' >> $BASH_ENV
+      - run:
+          name: Install bleach 5
+          command: pip install bleach[css]==5.0.0
       - run:
           name: Test Quality
           command: make quality
@@ -65,3 +97,11 @@ workflows:
       - quality:
           requires:
             -  build
+      - test_nutmeg:
+          requires:
+            - test
+            - quality
+      - quality_nutmeg:
+          requires:
+            - test
+            - quality
