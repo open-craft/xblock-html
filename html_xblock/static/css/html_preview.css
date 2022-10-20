@@ -7,71 +7,71 @@
 
 /* fall back to default browser styles for all rows; the inline styles (like
  * border style and color) would overwrite it */
-.studio-xblock-wrapper [data-block-type="html5"] table > * > tr {
+.studio-xblock-wrapper .html5_xblock table > * > tr {
   border: unset;
 }
 
 /* fall back to default browser styles, if border attribute is not set; the
  * inline styles (like border style and color) would overwrite it */
-.studio-xblock-wrapper [data-block-type="html5"] table:not([border]) {
+.studio-xblock-wrapper .html5_xblock table:not([border]) {
   border: unset;
 }
 
 /* default styles for any table that had border attribute set; the inline
  * styles (like border style and color) would overwrite it */
-.studio-xblock-wrapper [data-block-type="html5"] table[border] {
+.studio-xblock-wrapper .html5_xblock table[border] {
   border: 1px solid black;
 }
 
 /* change the border width, depending on the explicit value of the border
  * attribute */
-.studio-xblock-wrapper [data-block-type="html5"] table[border="1"] {
+.studio-xblock-wrapper .html5_xblock table[border="1"] {
   border-width: 1px;
 }
 
-.studio-xblock-wrapper [data-block-type="html5"] table[border="2"] {
+.studio-xblock-wrapper .html5_xblock table[border="2"] {
   border-width: 2px;
 }
 
-.studio-xblock-wrapper [data-block-type="html5"] table[border="3"] {
+.studio-xblock-wrapper .html5_xblock table[border="3"] {
   border-width: 3px;
 }
 
-.studio-xblock-wrapper [data-block-type="html5"] table[border="4"] {
+.studio-xblock-wrapper .html5_xblock table[border="4"] {
   border-width: 4px;
 }
 
-.studio-xblock-wrapper [data-block-type="html5"] table[border="5"] {
+.studio-xblock-wrapper .html5_xblock table[border="5"] {
   border-width: 5px;
 }
 
-.studio-xblock-wrapper [data-block-type="html5"] table[border="6"] {
+.studio-xblock-wrapper .html5_xblock table[border="6"] {
   border-width: 6px;
 }
 
-.studio-xblock-wrapper [data-block-type="html5"] table[border="7"] {
+.studio-xblock-wrapper .html5_xblock table[border="7"] {
   border-width: 7px;
 }
 
-.studio-xblock-wrapper [data-block-type="html5"] table[border="8"] {
+.studio-xblock-wrapper .html5_xblock table[border="8"] {
   border-width: 8px;
 }
 
-.studio-xblock-wrapper [data-block-type="html5"] table[border="9"] {
+.studio-xblock-wrapper .html5_xblock table[border="9"] {
   border-width: 9px;
 }
 
-.studio-xblock-wrapper [data-block-type="html5"] table[border="10"] {
+.studio-xblock-wrapper .html5_xblock table[border="10"] {
   border-width: 10px;
 }
 /* etc until the value we think is reasonable */
 
-.studio-xblock-wrapper [data-block-type="html5"] table[border] > * > tr > td,
-.studio-xblock-wrapper [data-block-type="html5"] table[border] > * > tr > th,
-.studio-xblock-wrapper [data-block-type="html5"] table[border] > * > td,
-.studio-xblock-wrapper [data-block-type="html5"] table[border] > * > th,
-.studio-xblock-wrapper [data-block-type="html5"] table[border] > td,
-.studio-xblock-wrapper [data-block-type="html5"] table[border] > th {
+.studio-xblock-wrapper .html5_xblock table[border] > * > tr > td,
+.studio-xblock-wrapper .html5_xblock table[border] > * > tr > th,
+.studio-xblock-wrapper .html5_xblock table[border] > * > td,
+.studio-xblock-wrapper .html5_xblock table[border] > * > th,
+.studio-xblock-wrapper .html5_xblock table[border] > td,
+.studio-xblock-wrapper .html5_xblock table[border] > th {
   border-width: thin;
   border-style: inset;
 }
