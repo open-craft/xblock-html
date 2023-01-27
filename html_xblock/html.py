@@ -229,24 +229,14 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         return data
 
     @property
-    def sanitized_html(self):
-        """
-        A property that returns a sanitized text field of the existing data object.
-        """
-        data = self.substitute_keywords()
-        html = SanitizedText(data)
-        return html.value
-
-    @property
     def html(self):
         """
         A property that returns this module content data, according to `allow_javascript`.
         I.E: Sanitized data if it's true or plain data if it's false.
         """
-        if self.allow_javascript:
-            data = self.substitute_keywords()
-            return data
-        return self.sanitized_html
+        data = self.substitute_keywords()
+        html = SanitizedText(data, allow_javascript=self.allow_javascript)
+        return html
 
     def get_editable_fields(self):
         """
