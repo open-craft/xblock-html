@@ -2,16 +2,7 @@
 A new HTML XBlock that is designed with security and embedding in mind.
 """
 import bleach
-
-try:
-    from bleach.css_sanitizer import CSSSanitizer
-except (ImportError, ModuleNotFoundError):
-    # NOTE:
-    # The bleach library changes the way CSS Styles are cleaned in
-    # version 5.0.0. Since the edx-platform uses version 4.1.0 in
-    # Maple, this import is handled within a try block.
-    # This try block CAN BE REMOVED for Nutmeg
-    CSSSanitizer = None
+from bleach.css_sanitizer import CSSSanitizer
 
 
 class SanitizedText:  # pylint: disable=too-few-public-methods
@@ -40,26 +31,14 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
         It does so by redefining the safe values we're currently using and
         considering safe in the platform.
         """
-        if CSSSanitizer:
-            # pylint: disable-next=unexpected-keyword-arg
-            cleaner = bleach.Cleaner(
-                tags=self._get_allowed_tags(),
-                attributes=self._get_allowed_attributes(),
-                css_sanitizer=CSSSanitizer(
-                    allowed_css_properties=self._get_allowed_styles()
-                )
+        # pylint: disable-next=unexpected-keyword-arg
+        cleaner = bleach.Cleaner(
+            tags=self._get_allowed_tags(),
+            attributes=self._get_allowed_attributes(),
+            css_sanitizer=CSSSanitizer(
+                allowed_css_properties=self._get_allowed_styles()
             )
-        else:
-            # NOTE: This is maintaining backward compatibility with bleach 4.1.0
-            # used in Maple release of edx-platform. This can be removed
-            # for Nutmeg release which uses bleach 5.0.0
-            # pylint: disable-next=unexpected-keyword-arg
-            cleaner = bleach.Cleaner(
-                tags=self._get_allowed_tags(),
-                attributes=self._get_allowed_attributes(),
-                styles=self._get_allowed_styles()
-            )
-
+        )
         return cleaner
 
     def _get_allowed_tags(self):

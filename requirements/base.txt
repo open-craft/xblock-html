@@ -2,6 +2,5 @@
 
 xblock-utils==2.2.0
 edx-i18n-tools==0.9.1
-bleach==4.1.0  # version pinned for Maple
-# bleach[css]==5.0.0  # Use this for Nutmeg
+bleach[css]==5.0.0
 django==3.2.13
