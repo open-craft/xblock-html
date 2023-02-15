@@ -3,4 +3,4 @@
 xblock-utils==2.2.0
 edx-i18n-tools==0.9.1
 bleach[css]==5.0.0
-django==3.2.13
+django==3.2.18
