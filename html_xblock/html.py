@@ -14,8 +14,8 @@ from xblockutils.studio_editable import StudioEditableXBlockMixin, loader
 from .bleaching import SanitizedText
 from .utils import _
 
-log = logging.getLogger(__name__)  # pylint: disable=invalid-name
-xblock_loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
+log = logging.getLogger(__name__)
+xblock_loader = ResourceLoader(__name__)
 
 
 @XBlock.wants('settings')
@@ -85,7 +85,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
         return frag
 
-    def studio_view(self, context=None):  # pylint: disable=unused-argument
+    def studio_view(self, context=None):
         """
         Return a fragment that contains the html for the Studio view.
         """

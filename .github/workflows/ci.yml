@@ -1,0 +1,48 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04]
+        python-version: [3.8]
+        toxenv: [django32-nutmeg, django32-latest, django41-latest, quality, pii_check]
+
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v3
+
+    - name: setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Dependencies
+      run: make requirements
+
+    - name: Run Tests
+      env:
+        TOXENV: ${{ matrix.toxenv }}
+      run: tox
+
+    - name: Run coverage
+      if: matrix.python-version == '3.8' && matrix.toxenv == 'django32-nutmeg'
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        flags: unittests
+        fail_ci_if_error: true
