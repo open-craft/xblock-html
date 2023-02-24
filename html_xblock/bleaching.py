@@ -47,7 +47,8 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
 
         :return: Allowed tags depending on the bleaching mode
         """
-        tags = bleach.ALLOWED_TAGS + [
+        # Convert `bleach.ALLOWED_TAGS` to a set because it is a list in `bleach<6.0.0`.
+        tags = set(bleach.ALLOWED_TAGS) | {
             'br',
             'caption',
             'dd',
@@ -79,10 +80,10 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
             'tr',
             'u',
             'iframe',
-        ]
+        }
 
         if self.allow_javascript:
-            tags += ['script']
+            tags |= {'script'}
 
         return tags
 
