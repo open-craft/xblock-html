@@ -209,13 +209,13 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
             - throw `KeyError` or `AttributeError`, `TypeError`.
         """
         data = self.data
-        system = getattr(self, 'system', None)
-        if not system:  # This shouldn't happen, but if `system` is missing, then skip substituting keywords.
+        runtime = getattr(self, 'runtime', None)
+        if not runtime:  # This shouldn't happen, but if `runtime` is missing, then skip substituting keywords.
             return data
 
         keywords = {
-            '%%USER_ID%%': lambda: getattr(system, 'anonymous_student_id'),
-            '%%COURSE_ID%%': lambda: getattr(system, 'course_id').html_id(),
+            '%%USER_ID%%': lambda: runtime.anonymous_student_id,
+            '%%COURSE_ID%%': lambda: runtime.course_id.html_id(),  # pylint: disable=unnecessary-lambda
         }
 
         for key, substitutor in keywords.items():
