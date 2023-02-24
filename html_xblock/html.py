@@ -4,10 +4,10 @@ import logging
 
 import pkg_resources
 from django.conf import settings
+from web_fragments.fragment import Fragment
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
-from xblock.fragment import Fragment
 from xblockutils.resources import ResourceLoader
 from xblockutils.studio_editable import StudioEditableXBlockMixin, loader
 
