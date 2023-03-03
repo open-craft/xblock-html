@@ -5,7 +5,7 @@ import bleach
 from bleach.css_sanitizer import CSSSanitizer
 
 
-class SanitizedText:  # pylint: disable=too-few-public-methods
+class SanitizedText:
     """
     This class is responsible for maintaining unsafe string values saved in the database.
     It returns a safe value of the passed text and an unsafe value if requested.
@@ -31,7 +31,6 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
         It does so by redefining the safe values we're currently using and
         considering safe in the platform.
         """
-        # pylint: disable-next=unexpected-keyword-arg
         cleaner = bleach.Cleaner(
             tags=self._get_allowed_tags(),
             attributes=self._get_allowed_attributes(),
@@ -47,7 +46,8 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
 
         :return: Allowed tags depending on the bleaching mode
         """
-        tags = bleach.ALLOWED_TAGS + [
+        # Convert `bleach.ALLOWED_TAGS` to a set because it is a list in `bleach<6.0.0`.
+        tags = set(bleach.ALLOWED_TAGS) | {
             'br',
             'caption',
             'dd',
@@ -79,10 +79,10 @@ class SanitizedText:  # pylint: disable=too-few-public-methods
             'tr',
             'u',
             'iframe',
-        ]
+        }
 
         if self.allow_javascript:
-            tags += ['script']
+            tags |= {'script'}
 
         return tags
 

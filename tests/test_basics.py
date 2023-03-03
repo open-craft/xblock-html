@@ -93,9 +93,9 @@ class TestHTMLXBlock(unittest.TestCase):
         fragment = block.student_view()
         self.assertIn('Safe <b>html</b><script>alert(\'javascript\');</script>', fragment.content)
 
-    def test_substitution_no_system(self):
+    def test_substitution_no_runtime(self):
         """
-        Test that the substitution is not performed when `system` is not present inside XBlock.
+        Test that the substitution is not performed when `runtime` is not present inside XBlock.
         """
         field_data = DictFieldData({'data': 'Safe <b>%%USER_ID%% %%COURSE_ID%%</b>'})
         block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
@@ -108,7 +108,7 @@ class TestHTMLXBlock(unittest.TestCase):
         """
         field_data = DictFieldData({'data': 'Safe <b>%%USER_ID%% %%COURSE_ID%%</b>'})
         block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
-        block.system = Mock(anonymous_student_id=None)
+        block.runtime = Mock(anonymous_student_id=None)
         fragment = block.student_view()
         self.assertIn('Safe <b>%%USER_ID%% %%COURSE_ID%%</b>', fragment.content)
 
@@ -118,7 +118,7 @@ class TestHTMLXBlock(unittest.TestCase):
         """
         field_data = DictFieldData({'data': 'Safe <b>%%USER_ID%%</b>'})
         block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
-        block.system = Mock(anonymous_student_id='test_user')
+        block.runtime = Mock(anonymous_student_id='test_user')
         fragment = block.student_view()
         self.assertIn('Safe <b>test_user</b>', fragment.content)
 
@@ -130,6 +130,6 @@ class TestHTMLXBlock(unittest.TestCase):
         block = html_xblock.HTML5XBlock(self.runtime, field_data, None)
         course_locator_mock = Mock()
         course_locator_mock.html_id = Mock(return_value='test_course')
-        block.system = Mock(course_id=course_locator_mock)
+        block.runtime = Mock(course_id=course_locator_mock)
         fragment = block.student_view()
         self.assertIn('Safe <b>test_course</b>', fragment.content)

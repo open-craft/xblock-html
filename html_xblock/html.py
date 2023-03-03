@@ -4,18 +4,18 @@ import logging
 
 import pkg_resources
 from django.conf import settings
+from web_fragments.fragment import Fragment
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
-from xblock.fragment import Fragment
 from xblockutils.resources import ResourceLoader
 from xblockutils.studio_editable import StudioEditableXBlockMixin, loader
 
 from .bleaching import SanitizedText
 from .utils import _
 
-log = logging.getLogger(__name__)  # pylint: disable=invalid-name
-xblock_loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
+log = logging.getLogger(__name__)
+xblock_loader = ResourceLoader(__name__)
 
 
 @XBlock.wants('settings')
@@ -85,7 +85,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
         return frag
 
-    def studio_view(self, context=None):  # pylint: disable=unused-argument
+    def studio_view(self, context=None):
         """
         Return a fragment that contains the html for the Studio view.
         """
@@ -209,13 +209,13 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
             - throw `KeyError` or `AttributeError`, `TypeError`.
         """
         data = self.data
-        system = getattr(self, 'system', None)
-        if not system:  # This shouldn't happen, but if `system` is missing, then skip substituting keywords.
+        runtime = getattr(self, 'runtime', None)
+        if not runtime:  # This shouldn't happen, but if `runtime` is missing, then skip substituting keywords.
             return data
 
         keywords = {
-            '%%USER_ID%%': lambda: getattr(system, 'anonymous_student_id'),
-            '%%COURSE_ID%%': lambda: getattr(system, 'course_id').html_id(),
+            '%%USER_ID%%': lambda: runtime.anonymous_student_id,
+            '%%COURSE_ID%%': lambda: runtime.course_id.html_id(),  # pylint: disable=unnecessary-lambda
         }
 
         for key, substitutor in keywords.items():
