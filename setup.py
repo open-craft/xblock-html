@@ -4,7 +4,7 @@ import os
 import re
 import sys
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 
 def get_version(*file_paths):
@@ -123,11 +123,8 @@ setup(
     author='OpenCraft',
     url='https://github.com/open-craft/xblock-html',
     license='AGPL v3',
-    packages=find_packages(
-        include=['html_xblock', 'html_xblock.*'],
-        exclude=["*tests"],
-    ),
-    include_package_data=True,
+    packages=['html_xblock'],
+    package_data=package_data('html_xblock', ['static', 'public']),
     install_requires=load_requirements('requirements/base.in'),
     python_requires=">=3.8",
     keywords='Python edx',
