@@ -21,9 +21,9 @@ binaryornot==0.4.4
     # via -r requirements/base.txt
 boto==2.49.0
     # via xblock-sdk
-boto3==1.26.78
+boto3==1.26.84
     # via fs-s3fs
-botocore==1.29.78
+botocore==1.29.84
     # via
     #   boto3
     #   s3transfer
@@ -41,7 +41,7 @@ code-annotations==1.3.0
     # via -r requirements/test.in
 cookiecutter==2.1.1
     # via xblock-sdk
-coverage[toml]==7.2.0
+coverage[toml]==7.2.1
     # via pytest-cov
     # via
     #   -r requirements/base.txt
@@ -110,7 +110,7 @@ polib==1.2.0
     # via edx-i18n-tools
 pypng==0.20220715.0
     # via xblock-sdk
-pytest==7.2.1
+pytest==7.2.2
     # via
     #   pytest-cov
     #   pytest-django
@@ -124,7 +124,7 @@ python-dateutil==2.8.2
     #   arrow
     #   botocore
     #   xblock
-python-slugify==8.0.0
+python-slugify==8.0.1
     # via
     #   code-annotations
     #   cookiecutter

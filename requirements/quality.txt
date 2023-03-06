@@ -16,7 +16,7 @@ asgiref==3.6.0
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.14.2
+astroid==2.15.0
     # via
     #   pylint
     #   pylint-celery
@@ -34,11 +34,11 @@ boto==2.49.0
     # via
     #   -r requirements/test.txt
     #   xblock-sdk
-boto3==1.26.78
+boto3==1.26.84
     # via
     #   -r requirements/test.txt
     #   fs-s3fs
-botocore==1.29.78
+botocore==1.29.84
     # via
     #   -r requirements/test.txt
     #   boto3
@@ -72,7 +72,7 @@ cookiecutter==2.1.1
     # via
     #   -r requirements/test.txt
     #   xblock-sdk
-coverage[toml]==7.2.0
+coverage[toml]==7.2.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -171,7 +171,7 @@ pbr==5.11.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==3.0.0
+platformdirs==3.1.0
     # via pylint
 pluggy==1.0.0
     # via
@@ -185,7 +185,7 @@ pycodestyle==2.10.0
     # via -r requirements/quality.in
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==2.16.2
+pylint==2.16.3
     # via
     #   edx-lint
     #   pylint-celery
@@ -203,7 +203,7 @@ pypng==0.20220715.0
     # via
     #   -r requirements/test.txt
     #   xblock-sdk
-pytest==7.2.1
+pytest==7.2.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -218,7 +218,7 @@ python-dateutil==2.8.2
     #   arrow
     #   botocore
     #   xblock
-python-slugify==8.0.0
+python-slugify==8.0.1
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -308,7 +308,7 @@ webob==1.8.7
     #   -r requirements/test.txt
     #   xblock
     #   xblock-sdk
-wrapt==1.14.1
+wrapt==1.15.0
     # via astroid
 xblock[django]==1.6.2
     # via
