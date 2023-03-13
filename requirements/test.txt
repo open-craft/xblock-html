@@ -21,9 +21,9 @@ binaryornot==0.4.4
     # via -r requirements/base.txt
 boto==2.49.0
     # via xblock-sdk
-boto3==1.26.78
+boto3==1.26.89
     # via fs-s3fs
-botocore==1.29.78
+botocore==1.29.89
     # via
     #   boto3
     #   s3transfer
@@ -31,7 +31,7 @@ certifi==2022.12.7
     # via requests
 chardet==5.1.0
     # via binaryornot
-charset-normalizer==3.0.1
+charset-normalizer==3.1.0
     # via requests
 click==8.1.3
     # via
@@ -41,7 +41,7 @@ code-annotations==1.3.0
     # via -r requirements/test.in
 cookiecutter==2.1.1
     # via xblock-sdk
-coverage[toml]==7.2.0
+coverage[toml]==7.2.1
     # via pytest-cov
     # via
     #   -r requirements/base.txt
@@ -50,7 +50,7 @@ coverage[toml]==7.2.0
     #   xblock-sdk
 edx-i18n-tools==0.9.2
     # via -r requirements/test.in
-exceptiongroup==1.1.0
+exceptiongroup==1.1.1
     # via pytest
 fs==2.4.16
     # via
@@ -110,7 +110,7 @@ polib==1.2.0
     # via edx-i18n-tools
 pypng==0.20220715.0
     # via xblock-sdk
-pytest==7.2.1
+pytest==7.2.2
     # via
     #   pytest-cov
     #   pytest-django
@@ -124,7 +124,7 @@ python-dateutil==2.8.2
     #   arrow
     #   botocore
     #   xblock
-python-slugify==8.0.0
+python-slugify==8.0.1
     # via
     #   code-annotations
     #   cookiecutter
@@ -174,7 +174,7 @@ tomli==2.0.1
     # via
     #   coverage
     #   pytest
-urllib3==1.26.14
+urllib3==1.26.15
     # via
     #   botocore
     #   requests
