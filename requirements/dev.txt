@@ -35,11 +35,11 @@ boto==2.49.0
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk
-boto3==1.26.99
+boto3==1.26.104
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.29.99
+botocore==1.29.104
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -113,7 +113,7 @@ exceptiongroup==1.1.1
     # via
     #   -r requirements/quality.txt
     #   pytest
-filelock==3.10.6
+filelock==3.10.7
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -279,7 +279,7 @@ python-slugify==8.0.1
     #   -r requirements/quality.txt
     #   code-annotations
     #   cookiecutter
-pytz==2023.2
+pytz==2023.3
     # via
     #   -r requirements/quality.txt
     #   django
@@ -347,7 +347,7 @@ tomli==2.0.1
     #   pyproject-hooks
     #   pytest
     #   tox
-tomlkit==0.11.6
+tomlkit==0.11.7
     # via
     #   -r requirements/quality.txt
     #   pylint
