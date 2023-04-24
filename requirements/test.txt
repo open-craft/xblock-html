@@ -19,9 +19,9 @@ binaryornot==0.4.4
     # via -r requirements/base.txt
 boto==2.49.0
     # via xblock-sdk
-boto3==1.26.115
+boto3==1.26.118
     # via fs-s3fs
-botocore==1.29.115
+botocore==1.29.118
     # via
     #   boto3
     #   s3transfer
