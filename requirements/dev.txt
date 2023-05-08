@@ -31,11 +31,11 @@ boto==2.49.0
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk
-boto3==1.26.126
+boto3==1.26.129
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.29.126
+botocore==1.29.129
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -44,7 +44,7 @@ build==0.10.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-certifi==2022.12.7
+certifi==2023.5.7
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -220,7 +220,7 @@ pycodestyle==2.10.0
     # via -r requirements/quality.txt
 pydocstyle==6.3.0
     # via -r requirements/quality.txt
-pylint==2.17.3
+pylint==2.17.4
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -285,7 +285,7 @@ requests==2.30.0
     #   -r requirements/quality.txt
     #   cookiecutter
     #   xblock-sdk
-s3transfer==0.6.0
+s3transfer==0.6.1
     # via
     #   -r requirements/quality.txt
     #   boto3
