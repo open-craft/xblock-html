@@ -78,6 +78,7 @@ class SanitizedText:
             'thead',
             'tr',
             'u',
+            'style',
             'iframe',
         }
 
