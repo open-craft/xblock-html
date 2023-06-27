@@ -95,7 +95,7 @@ class SanitizedText:
         """
         attributes = {
             '*': ['class', 'style', 'id'],
-            'a': ['href', 'title', 'target', 'rel'],
+            'a': ['href', 'title', 'target', 'rel', 'data-toggle', 'role', 'aria-expanded', 'aria-controls'],
             'abbr': ['title'],
             'acronym': ['title'],
             'audio': ['controls', 'autobuffer', 'autoplay', 'src'],
@@ -162,8 +162,11 @@ class SanitizedText:
             "width",
             'border',
             'border-style',
+            'margin',
             'margin-left',
             'margin-right',
+            'margin-top',
+            'margin-bottom',
             'padding-left',
             'padding-right',
         ]
