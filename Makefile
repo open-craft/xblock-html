@@ -50,7 +50,7 @@ test: clean ## run tests in the current virtualenv
 test-all: unit quality pii_check ## run tests on every supported Python/Django combination
 
 # Define PIP_COMPILE_OPTS=-v to get more information during make upgrade.
-PIP_COMPILE = pip-compile --upgrade --resolver=backtracking $(PIP_COMPILE_OPTS)
+PIP_COMPILE = pip-compile --upgrade $(PIP_COMPILE_OPTS)
 
 upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
 upgrade: ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
