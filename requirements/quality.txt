@@ -26,20 +26,20 @@ binaryornot==0.4.4
     #   cookiecutter
 bleach[css]==6.0.0
     # via -r requirements/test.txt
-boto3==1.28.3
+boto3==1.28.20
     # via
     #   -r requirements/test.txt
     #   fs-s3fs
-botocore==1.31.3
+botocore==1.31.20
     # via
     #   -r requirements/test.txt
     #   boto3
     #   s3transfer
-certifi==2023.5.7
+certifi==2023.7.22
     # via
     #   -r requirements/test.txt
     #   requests
-chardet==5.1.0
+chardet==5.2.0
     # via
     #   -r requirements/test.txt
     #   binaryornot
@@ -47,7 +47,7 @@ charset-normalizer==3.2.0
     # via
     #   -r requirements/test.txt
     #   requests
-click==8.1.5
+click==8.1.6
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -56,11 +56,11 @@ click==8.1.5
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==1.3.0
+code-annotations==1.5.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-cookiecutter==2.2.3
+cookiecutter==2.3.0
     # via
     #   -r requirements/test.txt
     #   xblock-sdk
@@ -68,16 +68,15 @@ coverage[toml]==7.2.7
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-dill==0.3.6
+dill==0.3.7
     # via pylint
 django==3.2.20
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   edx-i18n-tools
-    #   openedx-django-pyfs
     #   xblock-sdk
-edx-i18n-tools==1.0.0
+edx-i18n-tools==1.1.0
     # via -r requirements/test.txt
 edx-lint==5.3.4
     # via -r requirements/quality.in
@@ -89,12 +88,10 @@ fs==2.4.16
     # via
     #   -r requirements/test.txt
     #   fs-s3fs
-    #   openedx-django-pyfs
     #   xblock
 fs-s3fs==1.1.1
     # via
     #   -r requirements/test.txt
-    #   openedx-django-pyfs
     #   xblock-sdk
 idna==3.4
     # via
@@ -118,10 +115,6 @@ jmespath==1.0.1
     #   -r requirements/test.txt
     #   boto3
     #   botocore
-lazy==1.5
-    # via
-    #   -r requirements/test.txt
-    #   xblock
 lazy-object-proxy==1.9.0
     # via astroid
 lxml==4.9.3
@@ -133,6 +126,10 @@ mako==1.2.4
     # via
     #   -r requirements/test.txt
     #   xblock-utils
+markdown-it-py==3.0.0
+    # via
+    #   -r requirements/test.txt
+    #   rich
 markupsafe==2.1.3
     # via
     #   -r requirements/test.txt
@@ -141,12 +138,12 @@ markupsafe==2.1.3
     #   xblock
 mccabe==0.7.0
     # via pylint
-mock==5.1.0
-    # via -r requirements/test.txt
-openedx-django-pyfs==3.4.0
+mdurl==0.1.2
     # via
     #   -r requirements/test.txt
-    #   xblock
+    #   markdown-it-py
+mock==5.1.0
+    # via -r requirements/test.txt
 packaging==23.1
     # via
     #   -r requirements/test.txt
@@ -159,7 +156,7 @@ pbr==5.11.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==3.9.1
+platformdirs==3.10.0
     # via pylint
 pluggy==1.2.0
     # via
@@ -169,11 +166,15 @@ polib==1.2.0
     # via
     #   -r requirements/test.txt
     #   edx-i18n-tools
-pycodestyle==2.10.0
+pycodestyle==2.11.0
     # via -r requirements/quality.in
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==2.17.4
+pygments==2.16.1
+    # via
+    #   -r requirements/test.txt
+    #   rich
+pylint==2.17.5
     # via
     #   edx-lint
     #   pylint-celery
@@ -216,7 +217,7 @@ pytz==2023.3
     #   -r requirements/test.txt
     #   django
     #   xblock
-pyyaml==6.0
+pyyaml==6.0.1
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -228,6 +229,10 @@ requests==2.31.0
     #   -r requirements/test.txt
     #   cookiecutter
     #   xblock-sdk
+rich==13.5.2
+    # via
+    #   -r requirements/test.txt
+    #   cookiecutter
 s3transfer==0.6.1
     # via
     #   -r requirements/test.txt
@@ -269,7 +274,7 @@ tomli==2.0.1
     #   coverage
     #   pylint
     #   pytest
-tomlkit==0.11.8
+tomlkit==0.12.1
     # via pylint
 typing-extensions==4.7.1
     # via
@@ -277,12 +282,13 @@ typing-extensions==4.7.1
     #   asgiref
     #   astroid
     #   pylint
+    #   rich
 urllib3==1.26.16
     # via
     #   -r requirements/test.txt
     #   botocore
     #   requests
-web-fragments==2.0.0
+web-fragments==2.1.0
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -300,14 +306,14 @@ webob==1.8.7
     #   xblock-sdk
 wrapt==1.15.0
     # via astroid
-xblock[django]==1.6.2
+xblock==1.7.0
     # via
     #   -r requirements/test.txt
     #   xblock-sdk
     #   xblock-utils
-xblock-sdk==0.6.0
+xblock-sdk==0.7.0
     # via -r requirements/test.txt
-xblock-utils==3.2.0
+xblock-utils==3.3.0
     # via -r requirements/test.txt
 
 # The following packages are considered to be unsafe in a requirements file:
