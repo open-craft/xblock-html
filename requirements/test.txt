@@ -18,9 +18,12 @@ binaryornot==0.4.4
     # via cookiecutter
     # via -r requirements/base.txt
 boto3==1.28.21
-    # via fs-s3fs
+    # via
+    #   -r requirements/base.txt
+    #   fs-s3fs
 botocore==1.31.21
     # via
+    #   -r requirements/base.txt
     #   boto3
     #   s3transfer
 certifi==2023.7.22
@@ -43,6 +46,7 @@ coverage[toml]==7.2.7
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
     #   edx-i18n-tools
+    #   openedx-django-pyfs
     #   xblock-sdk
 edx-i18n-tools==1.1.0
     # via -r requirements/test.in
@@ -52,9 +56,13 @@ fs==2.4.16
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
+    #   openedx-django-pyfs
     #   xblock
 fs-s3fs==1.1.1
-    # via xblock-sdk
+    # via
+    #   -r requirements/base.txt
+    #   openedx-django-pyfs
+    #   xblock-sdk
 idna==3.4
     # via requests
 iniconfig==2.0.0
@@ -65,8 +73,13 @@ jinja2==3.1.2
     #   cookiecutter
 jmespath==1.0.1
     # via
+    #   -r requirements/base.txt
     #   boto3
     #   botocore
+lazy==1.5
+    # via
+    #   -r requirements/base.txt
+    #   xblock
 lxml==4.9.3
     # via
     #   -r requirements/base.txt
@@ -88,6 +101,10 @@ mdurl==0.1.2
     # via markdown-it-py
 mock==5.1.0
     # via -r requirements/test.in
+openedx-django-pyfs==3.4.0
+    # via
+    #   -r requirements/base.txt
+    #   xblock
 packaging==23.1
     # via pytest
 path==16.7.1
@@ -139,7 +156,9 @@ requests==2.31.0
 rich==13.5.2
     # via cookiecutter
 s3transfer==0.6.1
-    # via boto3
+    # via
+    #   -r requirements/base.txt
+    #   boto3
 simplejson==3.19.1
     # via
     #   -r requirements/base.txt
@@ -175,6 +194,7 @@ typing-extensions==4.7.1
     #   rich
 urllib3==1.26.16
     # via
+    #   -r requirements/base.txt
     #   botocore
     #   requests
 web-fragments==2.1.0
@@ -193,7 +213,7 @@ webob==1.8.7
     #   -r requirements/base.txt
     #   xblock
     #   xblock-sdk
-xblock==1.7.0
+xblock[django]==1.7.0
     # via
     #   -r requirements/base.txt
     #   xblock-sdk

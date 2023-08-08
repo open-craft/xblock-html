@@ -90,6 +90,7 @@ django==3.2.20
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
     #   edx-i18n-tools
+    #   openedx-django-pyfs
     #   xblock-sdk
 edx-i18n-tools==1.1.0
     # via -r requirements/quality.txt
@@ -108,10 +109,12 @@ fs==2.4.16
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
+    #   openedx-django-pyfs
     #   xblock
 fs-s3fs==1.1.1
     # via
     #   -r requirements/quality.txt
+    #   openedx-django-pyfs
     #   xblock-sdk
 idna==3.4
     # via
@@ -135,6 +138,10 @@ jmespath==1.0.1
     #   -r requirements/quality.txt
     #   boto3
     #   botocore
+lazy==1.5
+    # via
+    #   -r requirements/quality.txt
+    #   xblock
 lazy-object-proxy==1.9.0
     # via
     #   -r requirements/quality.txt
@@ -168,6 +175,10 @@ mdurl==0.1.2
     #   markdown-it-py
 mock==5.1.0
     # via -r requirements/quality.txt
+openedx-django-pyfs==3.4.0
+    # via
+    #   -r requirements/quality.txt
+    #   xblock
 packaging==23.1
     # via
     #   -r requirements/ci.txt
@@ -385,7 +396,7 @@ wrapt==1.15.0
     # via
     #   -r requirements/quality.txt
     #   astroid
-xblock==1.7.0
+xblock[django]==1.7.0
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk
