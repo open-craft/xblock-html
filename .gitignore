@@ -33,6 +33,7 @@ pip-log.txt
 coverage.xml
 htmlcov/
 diff-cover.html
+pii_report
 
 # Translations
 *.mo
