@@ -17,11 +17,11 @@ asgiref==3.7.2
 binaryornot==0.4.4
     # via cookiecutter
     # via -r requirements/base.txt
-boto3==1.28.49
+boto3==1.28.53
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.31.49
+botocore==1.31.53
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -38,7 +38,7 @@ click==8.1.7
     #   cookiecutter
 code-annotations==1.5.0
     # via -r requirements/test.in
-cookiecutter==2.3.0
+cookiecutter==2.3.1
     # via xblock-sdk
 coverage[toml]==7.3.1
     # via pytest-cov
@@ -187,7 +187,7 @@ tomli==2.0.1
     # via
     #   coverage
     #   pytest
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
     #   -r requirements/base.txt
     #   asgiref
