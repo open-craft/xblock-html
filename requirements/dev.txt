@@ -16,7 +16,7 @@ asgiref==3.7.2
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==2.15.6
+astroid==2.15.7
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -27,11 +27,11 @@ binaryornot==0.4.4
     #   cookiecutter
 bleach[css]==6.0.0
     # via -r requirements/quality.txt
-boto3==1.28.49
+boto3==1.28.53
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.31.49
+botocore==1.31.53
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -69,7 +69,7 @@ code-annotations==1.5.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-cookiecutter==2.3.0
+cookiecutter==2.3.1
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk
@@ -360,7 +360,7 @@ tox==3.28.0
     #   tox-battery
 tox-battery==0.6.2
     # via -r requirements/ci.txt
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
     #   -r requirements/quality.txt
     #   asgiref
@@ -409,7 +409,7 @@ xblock-sdk==0.7.0
     # via -r requirements/quality.txt
 xblock-utils==3.4.1
     # via -r requirements/quality.txt
-zipp==3.16.2
+zipp==3.17.0
     # via
     #   -r requirements/pip-tools.txt
     #   importlib-metadata
