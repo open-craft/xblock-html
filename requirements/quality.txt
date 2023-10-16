@@ -25,12 +25,14 @@ binaryornot==0.4.4
     #   -r requirements/test.txt
     #   cookiecutter
 bleach[css]==6.1.0
-    # via -r requirements/test.txt
-boto3==1.28.62
+    # via
+    #   -r requirements/test.txt
+    #   bleach
+boto3==1.28.63
     # via
     #   -r requirements/test.txt
     #   fs-s3fs
-botocore==1.31.62
+botocore==1.31.63
     # via
     #   -r requirements/test.txt
     #   boto3
@@ -67,6 +69,7 @@ cookiecutter==2.4.0
 coverage[toml]==7.3.2
     # via
     #   -r requirements/test.txt
+    #   coverage
     #   pytest-cov
 dill==0.3.7
     # via pylint
@@ -179,7 +182,7 @@ polib==1.2.0
     # via
     #   -r requirements/test.txt
     #   edx-i18n-tools
-pycodestyle==2.11.0
+pycodestyle==2.11.1
     # via -r requirements/quality.in
 pydocstyle==6.3.0
     # via -r requirements/quality.in
@@ -327,6 +330,7 @@ wrapt==1.15.0
 xblock[django]==1.8.1
     # via
     #   -r requirements/test.txt
+    #   xblock
     #   xblock-sdk
     #   xblock-utils
 xblock-sdk==0.7.0
