@@ -19,11 +19,11 @@ binaryornot==0.4.4
     # via
     #   -r requirements/base.txt
     #   bleach
-boto3==1.28.63
+boto3==1.28.68
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.31.63
+botocore==1.31.68
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -32,7 +32,7 @@ certifi==2023.7.22
     # via requests
 chardet==5.2.0
     # via binaryornot
-charset-normalizer==3.3.0
+charset-normalizer==3.3.1
     # via requests
 click==8.1.7
     # via
@@ -201,7 +201,7 @@ typing-extensions==4.8.0
     #   -r requirements/base.txt
     #   asgiref
     #   rich
-urllib3==1.26.17
+urllib3==1.26.18
     # via
     #   -r requirements/base.txt
     #   botocore
