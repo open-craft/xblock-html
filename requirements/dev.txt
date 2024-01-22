@@ -29,11 +29,11 @@ bleach[css]==6.1.0
     # via
     #   -r requirements/quality.txt
     #   bleach
-boto3==1.34.19
+boto3==1.34.23
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.34.19
+botocore==1.34.23
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -164,7 +164,7 @@ markdown-it-py==3.0.0
     # via
     #   -r requirements/quality.txt
     #   rich
-markupsafe==2.1.3
+markupsafe==2.1.4
     # via
     #   -r requirements/quality.txt
     #   jinja2
