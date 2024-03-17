@@ -80,6 +80,8 @@ class SanitizedText:
             'u',
             'style',
             'iframe',
+            'details',
+            'summary',
         }
 
         if self.allow_javascript:
