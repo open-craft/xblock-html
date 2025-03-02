@@ -105,7 +105,7 @@ function getSettingsValues(fields) {
 
 function extractXBlockFields() {
   /**
-   * The content of this function is as found in xblockutils#studio_edit.js
+   * The content of this function is as found in xblock.utils#studio_edit.js
    */
   var elements;
   var fields = [];
