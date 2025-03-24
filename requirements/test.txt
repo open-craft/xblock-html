@@ -17,11 +17,11 @@ asgiref==3.8.1
 binaryornot==0.4.4
     # via cookiecutter
     # via -r requirements/base.txt
-boto3==1.37.13
+boto3==1.37.18
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.37.13
+botocore==1.37.18
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -40,7 +40,7 @@ code-annotations==2.2.0
     # via -r requirements/test.in
 cookiecutter==2.6.0
     # via xblock-sdk
-coverage[toml]==7.7.0
+coverage[toml]==7.7.1
     # via pytest-cov
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
@@ -48,7 +48,7 @@ coverage[toml]==7.7.0
     #   edx-i18n-tools
     #   openedx-django-pyfs
     #   xblock-sdk
-edx-i18n-tools==1.6.3
+edx-i18n-tools==1.7.0
     # via -r requirements/test.in
 fs==2.4.16
     # via
@@ -63,7 +63,7 @@ fs-s3fs==1.1.1
     #   xblock-sdk
 idna==3.10
     # via requests
-iniconfig==2.0.0
+iniconfig==2.1.0
     # via pytest
 jinja2==3.1.6
     # via
