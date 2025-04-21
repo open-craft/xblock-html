@@ -27,11 +27,11 @@ binaryornot==0.4.4
     #   cookiecutter
 bleach[css]==6.2.0
     # via -r requirements/quality.txt
-boto3==1.37.33
+boto3==1.37.37
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.37.33
+botocore==1.37.37
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -77,7 +77,7 @@ coverage[toml]==7.8.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
-dill==0.3.9
+dill==0.4.0
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -177,7 +177,7 @@ openedx-django-pyfs==3.7.0
     # via
     #   -r requirements/quality.txt
     #   xblock
-packaging==24.2
+packaging==25.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
@@ -292,7 +292,7 @@ rich==14.0.0
     # via
     #   -r requirements/quality.txt
     #   cookiecutter
-s3transfer==0.11.4
+s3transfer==0.11.5
     # via
     #   -r requirements/quality.txt
     #   boto3
