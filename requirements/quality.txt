@@ -26,16 +26,16 @@ binaryornot==0.4.4
     #   cookiecutter
 bleach[css]==6.2.0
     # via -r requirements/test.txt
-boto3==1.38.32
+boto3==1.38.36
     # via
     #   -r requirements/test.txt
     #   fs-s3fs
-botocore==1.38.32
+botocore==1.38.36
     # via
     #   -r requirements/test.txt
     #   boto3
     #   s3transfer
-certifi==2025.4.26
+certifi==2025.6.15
     # via
     #   -r requirements/test.txt
     #   requests
@@ -64,13 +64,13 @@ cookiecutter==2.6.0
     # via
     #   -r requirements/test.txt
     #   xblock-sdk
-coverage[toml]==7.8.2
+coverage[toml]==7.9.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
 dill==0.4.0
     # via pylint
-django==4.2.22
+django==4.2.23
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -173,6 +173,7 @@ pluggy==1.6.0
     # via
     #   -r requirements/test.txt
     #   pytest
+    #   pytest-cov
 polib==1.2.0
     # via
     #   -r requirements/test.txt
@@ -209,7 +210,7 @@ pytest==8.4.0
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.1.1
+pytest-cov==6.2.1
     # via -r requirements/test.txt
 pytest-django==4.11.1
     # via -r requirements/test.txt
@@ -235,7 +236,7 @@ pyyaml==6.0.2
     #   cookiecutter
     #   edx-i18n-tools
     #   xblock
-requests==2.32.3
+requests==2.32.4
     # via
     #   -r requirements/test.txt
     #   cookiecutter
