@@ -17,16 +17,16 @@ asgiref==3.9.1
 binaryornot==0.4.4
     # via cookiecutter
     # via -r requirements/base.txt
-boto3==1.39.4
+boto3==1.39.14
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.39.4
+botocore==1.39.14
     # via
     #   -r requirements/base.txt
     #   boto3
     #   s3transfer
-certifi==2025.7.9
+certifi==2025.7.14
     # via requests
 chardet==5.2.0
     # via binaryornot
@@ -40,7 +40,7 @@ code-annotations==2.3.0
     # via -r requirements/test.in
 cookiecutter==2.6.0
     # via xblock-sdk
-coverage[toml]==7.9.2
+coverage[toml]==7.10.1
     # via pytest-cov
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
@@ -158,9 +158,9 @@ requests==2.32.4
     # via
     #   cookiecutter
     #   xblock-sdk
-rich==14.0.0
+rich==14.1.0
     # via cookiecutter
-s3transfer==0.13.0
+s3transfer==0.13.1
     # via
     #   -r requirements/base.txt
     #   boto3
