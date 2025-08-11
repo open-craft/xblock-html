@@ -17,20 +17,20 @@ asgiref==3.9.1
 binaryornot==0.4.4
     # via cookiecutter
     # via -r requirements/base.txt
-boto3==1.39.4
+boto3==1.40.6
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.39.4
+botocore==1.40.6
     # via
     #   -r requirements/base.txt
     #   boto3
     #   s3transfer
-certifi==2025.7.9
+certifi==2025.8.3
     # via requests
 chardet==5.2.0
     # via binaryornot
-charset-normalizer==3.4.2
+charset-normalizer==3.4.3
     # via requests
 click==8.2.1
     # via
@@ -40,10 +40,10 @@ code-annotations==2.3.0
     # via -r requirements/test.in
 cookiecutter==2.6.0
     # via xblock-sdk
-coverage[toml]==7.9.2
+coverage[toml]==7.10.3
     # via pytest-cov
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
     #   edx-i18n-tools
     #   openedx-django-pyfs
@@ -158,9 +158,9 @@ requests==2.32.4
     # via
     #   cookiecutter
     #   xblock-sdk
-rich==14.0.0
+rich==14.1.0
     # via cookiecutter
-s3transfer==0.13.0
+s3transfer==0.13.1
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -187,11 +187,10 @@ tinycss2==1.4.0
     # via
     #   -r requirements/base.txt
     #   bleach
-types-python-dateutil==2.9.0.20250708
+types-python-dateutil==2.9.0.20250809
     # via arrow
-urllib3==2.2.3
+urllib3==2.5.0
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
     #   botocore
     #   requests
