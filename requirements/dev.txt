@@ -16,7 +16,7 @@ asgiref==3.11.0
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==3.3.11
+astroid==4.0.3
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -27,11 +27,11 @@ binaryornot==0.4.4
     #   cookiecutter
 bleach[css]==6.3.0
     # via -r requirements/quality.txt
-boto3==1.42.4
+boto3==1.42.21
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.42.4
+botocore==1.42.21
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -40,7 +40,7 @@ build==1.3.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-certifi==2025.11.12
+certifi==2026.1.4
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -73,7 +73,7 @@ cookiecutter==2.6.0
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk
-coverage[toml]==7.12.0
+coverage[toml]==7.13.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -96,7 +96,7 @@ edx-i18n-tools==1.9.0
     # via -r requirements/quality.txt
 edx-lint==5.6.0
     # via -r requirements/quality.txt
-filelock==3.20.0
+filelock==3.20.2
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -120,7 +120,7 @@ iniconfig==2.3.0
     # via
     #   -r requirements/quality.txt
     #   pytest
-isort==6.1.0
+isort==7.0.0
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -221,7 +221,7 @@ pygments==2.19.2
     #   -r requirements/quality.txt
     #   pytest
     #   rich
-pylint==3.3.9
+pylint==4.0.4
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -232,7 +232,7 @@ pylint-celery==0.3
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-pylint-django==2.6.1
+pylint-django==2.7.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -312,7 +312,7 @@ snowballstemmer==3.0.1
     # via
     #   -r requirements/quality.txt
     #   pydocstyle
-sqlparse==0.5.4
+sqlparse==0.5.5
     # via
     #   -r requirements/quality.txt
     #   django
@@ -338,11 +338,11 @@ tox==3.28.0
     #   tox-battery
 tox-battery==0.6.2
     # via -r requirements/ci.txt
-tzdata==2025.2
+tzdata==2025.3
     # via
     #   -r requirements/quality.txt
     #   arrow
-urllib3==2.6.0
+urllib3==2.6.2
     # via
     #   -r requirements/quality.txt
     #   botocore
@@ -370,7 +370,7 @@ wheel==0.45.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-xblock[django]==5.2.0
+xblock[django]==5.3.0
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk
