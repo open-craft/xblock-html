@@ -2,7 +2,6 @@
 
 import logging
 
-import pkg_resources
 from django.conf import settings
 from web_fragments.fragment import Fragment
 from xblock.completable import XBlockCompletionMode
@@ -63,12 +62,6 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
 
         return {}
 
-    @staticmethod
-    def resource_string(path):
-        """Handy helper for getting resources from our kit."""
-        data = pkg_resources.resource_string(__name__, path)
-        return data.decode('utf8')
-
     @XBlock.supports('multi_device')
     def student_view(self, context=None):  # pylint: disable=unused-argument
         """
@@ -77,11 +70,11 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         frag = Fragment()
         frag.content = xblock_loader.render_django_template('static/html/lms.html', {'self': self})
 
-        frag.add_css(self.resource_string('public/plugins/codesample/css/prism.css'))
-        frag.add_javascript(self.resource_string('public/plugins/codesample/js/prism.js'))
+        frag.add_css(self.runtime.local_resource_url('public/plugins/codesample/css/prism.css'))
+        frag.add_javascript(self.runtime.local_resource_url('public/plugins/codesample/js/prism.js'))
 
         if getattr(self.runtime, 'is_author_mode', False):
-            frag.add_css(self.resource_string('static/css/html_preview.css'))
+            frag.add_css(self.runtime.local_resource_url('static/css/html_preview.css'))
 
         return frag
 
@@ -160,7 +153,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         A helper method to add all styles to the fragment necesesary for edit.
         :param frag: The fragment that will hold the scripts.
         """
-        frag.add_css(self.resource_string('static/css/html_edit.css'))
+        frag.add_css(self.runtime.local_resource_url('static/css/html_edit.css'))
 
         if self.editor == 'raw':
             frag.add_css_url(settings.STATIC_URL + 'js/vendor/CodeMirror/codemirror.css')
@@ -172,7 +165,7 @@ class HTML5XBlock(StudioEditableXBlockMixin, XBlock):
         """
         frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/tinymce.full.min.js')
         frag.add_javascript_url(settings.STATIC_URL + 'js/vendor/tinymce/js/tinymce/themes/silver/theme.min.js')
-        frag.add_javascript(self.resource_string('static/js/html_edit.js'))
+        frag.add_javascript(self.runtime.local_resource_url('static/js/html_edit.js'))
         frag.add_javascript(loader.load_unicode('public/studio_edit.js'))
 
         if self.editor == 'raw':
